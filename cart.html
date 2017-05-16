@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Интернет магазин</title>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Интернет магазин по продаже DVD-дисков">
+    <meta name="keywords" content="интернет магазин, интернет магазин DVD, интернет магазин дисков">
+
+    <link rel="stylesheet" href="styles/main.css" type="text/css">
+
+    <script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <img src="images/header.png" alt="DVD shop">
+        <div id="phone_data">
+            <p class="red">8-800-234-34-35</p>
+            <p class="blue">Время раблоты: с 09:00 до 21:00 <br> без перерыва и выходных</p>
+        </div>
+        <div id="cart">
+            <p>Корзина</p>
+            <p>Текущий заказ</p>
+            <p>В корзине <span>2</span> товара <br> на сумму <span>700</span> руб.</p>
+            <a href="#">Перейти в корзину</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="topmenu">
+        <ul>
+            <li>
+                <a href="#">ГЛАВНАЯ</a>
+            </li>
+            <li>
+                <img src="images/topmenu_border.png" alt="topmenu_border">
+            </li>
+            <li>
+                <a href="#">ОПЛАТА И ДОСТАВКА</a>
+            </li>
+            <li>
+                <img src="images/topmenu_border.png" alt="topmenu_border">
+            </li>
+            <li>
+                <a href="#">КОНТАКТЫ</a>
+            </li>
+        </ul>
+        <div id="search">
+            <form name="search" action="#" method="get">
+                <div>
+                    <input type="text" name="search_text" value="Поиск" onfocus="if(this.value == 'Поиск'){this.value = ''}" onblur="if(this.value == ''){this.value = 'Поиск'}">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="content">
+        <div id="left">
+            <div id="menu">
+                <div class="header">
+                    <h3>Разделы</h3>
+                </div>
+                <div id="items">
+                    <ul>
+                        <li>
+                            <a href="#">Боевики</a>
+                        </li>
+                        <li>
+                            <a href="#">Комедии</a>
+                        </li>
+                        <li>
+                            <a href="#">Мелодрамы</a>
+                        </li>
+                        <li>
+                            <a href="#">Анимэ</a>
+                        </li>
+                        <li>
+                            <a href="#">ХардКор</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="right">
+            <div id="cart_content">
+                <h2>Корзина</h2>
+                <div id="cart_table">
+                    <table>
+                        <tr>
+                            <td colspan="2">Товар</td>
+                            <td>Цена за 1 шт.</td>
+                            <td>Количество</td>
+                            <td>Стоимость</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                        <td colspan="6">
+                            <hr>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="cart_img" src="images/cover.png" alt="Ледниковый период 4">
+                            </td>
+                            <td class="left_text">Ледниковый период 4: Континентальный дрейф</td>
+                            <td>430 руб.</td>
+                            <td class="cart_count">
+                                <input type="text" name="count" value="1"> шт.
+                            </td>
+                            <td class="bold_text">430 руб.</td>
+                            <td>
+                                <a href="#" class="link_delete">x удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <hr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="cart_img" src="images/cover.png" alt="Ледниковый период 4">
+                            </td>
+                            <td class="left_text">Ледниковый период 4: Континентальный дрейф</td>
+                            <td>430 руб.</td>
+                            <td class="cart_count">
+                                <input type="text" name="count" value="1"> шт.
+                            </td>
+                            <td class="bold_text">430 руб.</td>
+                            <td>
+                                <a href="#" class="link_delete">x удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <hr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="cart_img" src="images/cover.png" alt="Ледниковый период 4">
+                            </td>
+                            <td class="left_text">Ледниковый период 4: Континентальный дрейф</td>
+                            <td>430 руб.</td>
+                            <td class="cart_count">
+                                <input type="text" name="count" value="1"> шт.
+                            </td>
+                            <td class="bold_text">430 руб.</td>
+                            <td>
+                                <a href="#" class="link_delete">x удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <hr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="cart_img" src="images/cover.png" alt="Ледниковый период 4">
+                            </td>
+                            <td class="left_text">Ледниковый период 4: Континентальный дрейф</td>
+                            <td>430 руб.</td>
+                            <td class="cart_count">
+                                <input type="text" name="count" value="1"> шт.
+                            </td>
+                            <td class="bold_text">430 руб.</td>
+                            <td>
+                                <a href="#" class="link_delete">x удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <hr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="cart_img" src="images/cover.png" alt="Ледниковый период 4">
+                            </td>
+                            <td class="left_text">Ледниковый период 4: Континентальный дрейф</td>
+                            <td>430 руб.</td>
+                            <td class="cart_count">
+                                <input type="text" name="count" value="1"> шт.
+                            </td>
+                            <td class="bold_text">430 руб.</td>
+                            <td>
+                                <a href="#" class="link_delete">x удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <hr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="cart_img" src="images/cover.png" alt="Ледниковый период 4">
+                            </td>
+                            <td class="left_text">Ледниковый период 4: Континентальный дрейф</td>
+                            <td>430 руб.</td>
+                            <td class="cart_count">
+                                <input type="text" name="count" value="1"> шт.
+                            </td>
+                            <td class="bold_text">430 руб.</td>
+                            <td>
+                                <a href="#" class="link_delete">x удалить</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <div id="pm">
+                <table>
+                    <tr>
+                        <td>Способы оплаты: </td>
+                        <td>
+                            <img src="images/pm.png" alt="payment">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="copy">
+                <p>Copyright &copy; Site.ru Все права защищены. </p>
+                <p id="counter">
+                    <img src="images/counter.png" alt="counter">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

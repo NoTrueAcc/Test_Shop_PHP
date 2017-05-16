@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Интернет магазин</title>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Интернет магазин по продаже DVD-дисков">
+    <meta name="keywords" content="интернет магазин, интернет магазин DVD, интернет магазин дисков">
+
+    <link rel="stylesheet" href="styles/main.css" type="text/css">
+
+    <script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <img src="images/header.png" alt="DVD shop">
+        <div id="phone_data">
+            <p class="red">8-800-234-34-35</p>
+            <p class="blue">Время раблоты: с 09:00 до 21:00 <br> без перерыва и выходных</p>
+        </div>
+        <div id="cart">
+            <p>Корзина</p>
+            <p>Текущий заказ</p>
+            <p>В корзине <span>2</span> товара <br> на сумму <span>700</span> руб.</p>
+            <a href="#">Перейти в корзину</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="topmenu">
+        <ul>
+            <li>
+                <a href="#">ГЛАВНАЯ</a>
+            </li>
+            <li>
+                <img src="images/topmenu_border.png" alt="topmenu_border">
+            </li>
+            <li>
+                <a href="#">ОПЛАТА И ДОСТАВКА</a>
+            </li>
+            <li>
+                <img src="images/topmenu_border.png" alt="topmenu_border">
+            </li>
+            <li>
+                <a href="#">КОНТАКТЫ</a>
+            </li>
+        </ul>
+        <div id="search">
+            <form name="search" action="#" method="get">
+                <div>
+                    <input type="text" name="search_text" value="Поиск" onfocus="if(this.value == 'Поиск'){this.value = ''}" onblur="if(this.value == ''){this.value = 'Поиск'}">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="content">
+        <div id="left">
+            <div id="menu">
+                <div class="header">
+                    <h3>Разделы</h3>
+                </div>
+                <div id="items">
+                    <ul>
+                        <li>
+                            <a href="#">Боевики</a>
+                        </li>
+                        <li>
+                            <a href="#">Комедии</a>
+                        </li>
+                        <li>
+                            <a href="#">Мелодрамы</a>
+                        </li>
+                        <li>
+                            <a href="#">Анимэ</a>
+                        </li>
+                        <li>
+                            <a href="#">ХардКор</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="right">
+            <div id="hornav">
+                <table>
+                    <tr>
+                        <td>
+                            <a href="#">Главная</a>
+                        </td>
+                        <td>
+                            <img src="images/hornav_arrow.png" alt="">
+                        </td>
+                        <td>
+                            <a href="#">Мультфильмы</a>
+                        </td>
+                        <td>
+                            <img src="images/hornav_arrow.png" alt="">
+                        </td>
+                        <td>Ледниковый период 4: Континентальный дрейф</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="product">
+                <table>
+                    <tr>
+                        <td class="product_img">
+                            <img src="images/cover.png" alt="Ледниковый период 4: Континентальный дрейф">
+                        </td>
+                        <td class="top_desc">
+                            <p>Название: <span class="title">Ледниковый период 4: Континентальный дрейф</span></p>
+                            <p>Год выхода: <span>2012</span></p>
+                            <p>Жанр: <span>Мультфильм</span></p>
+                            <p>Страна-производитель: <span>США</span></p>
+                            <p>Режиссер: <span>Стив Мартино, Майк Трумейер</span></p>
+                            <p>Продолжительность: <span>01:19:39</span></p>
+                            <p>В ролях: <span>Куча всякого народа непонятного, авер фигова тьма, авер фигова тьма, авер фигова тьма, авер фигова тьма, авер фигова тьма</span></p>
+                            <table class="price_cart">
+                                <tr>
+                                    <td>
+                                        <p class="price">430 руб.</p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <a class="link_cart" href="#"></a>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p>Описание: </p>
+                            <p class="desc">Кароч тут находится описание фильма и  это не особо весело писать ручкамиКароч тут находится описание фильма и  это не особо весело писать ручкамиКароч тут находится описание фильма и  это не особо весело писать ручкамиКароч тут находится описание фильма и  это не особо весело писать ручками</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="others">
+                <h3>С этим товаром также заказывают:</h3>
+                <table class="products">
+                    <tr>
+                        <td>
+                            <div class="intro_product">
+                                <p class="img">
+                                    <img src="images/cover.png" alt="Ледниковый период 4">
+                                </p>
+                                <p class="title">
+                                    <a href="#">Ледниковый перид 4</a>
+                                </p>
+                                <p class="price">430 руб.</p>
+                                <p>
+                                    <a class="link_cart" href="#"></a>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="intro_product">
+                                <p class="img">
+                                    <img src="images/cover.png" alt="Ледниковый период 4">
+                                </p>
+                                <p class="title">
+                                    <a href="#">Ледниковый перид 4</a>
+                                </p>
+                                <p class="price">430 руб.</p>
+                                <p>
+                                    <a class="link_cart" href="#"></a>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="intro_product">
+                                <p class="img">
+                                    <img src="images/cover.png" alt="Ледниковый период 4">
+                                </p>
+                                <p class="title">
+                                    <a href="#">Ледниковый перид 4</a>
+                                </p>
+                                <p class="price">430 руб.</p>
+                                <p>
+                                    <a class="link_cart" href="#"></a>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="intro_product">
+                                <p class="img">
+                                    <img src="images/cover.png" alt="Ледниковый период 4">
+                                </p>
+                                <p class="title">
+                                    <a href="#">Ледниковый перид 4</a>
+                                </p>
+                                <p class="price">430 руб.</p>
+                                <p>
+                                    <a class="link_cart" href="#"></a>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="intro_product">
+                                <p class="img">
+                                    <img src="images/cover.png" alt="Ледниковый период 4">
+                                </p>
+                                <p class="title">
+                                    <a href="#">Ледниковый перид 4</a>
+                                </p>
+                                <p class="price">430 руб.</p>
+                                <p>
+                                    <a class="link_cart" href="#"></a>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="intro_product">
+                                <p class="img">
+                                    <img src="images/cover.png" alt="Ледниковый период 4">
+                                </p>
+                                <p class="title">
+                                    <a href="#">Ледниковый перид 4</a>
+                                </p>
+                                <p class="price">430 руб.</p>
+                                <p>
+                                    <a class="link_cart" href="#"></a>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <div id="pm">
+                <table>
+                    <tr>
+                        <td>Способы оплаты: </td>
+                        <td>
+                            <img src="images/pm.png" alt="payment">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="copy">
+                <p>Copyright &copy; Site.ru Все права защищены. </p>
+                <p id="counter">
+                    <img src="images/counter.png" alt="counter">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
