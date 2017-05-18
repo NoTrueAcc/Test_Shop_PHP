@@ -457,16 +457,16 @@ body
 
 /*cart_page*/
 
-#right #cart_content h2 {
+#right #cart_content h2, #right #order_content h2 {
     font-weight: normal;
     font-size: 120%;
     margin: 0 0 20px 10px;
 }
 
 #right #cart_table {
-    border: 1px solid black;
+    border: 1px solid #5F9EA0;
     border-radius: 10px;
-    box-shadow: #000 2px 2px;
+    box-shadow: #B0E0E6 2px 2px;
 }
 
 #right #cart_table table tr:first-child td {
@@ -524,4 +524,153 @@ body
 
 #right #cart_table a.link_delete:hover {
     color: #ef0a05;
+}
+
+#right #cart_table #discount {
+    margin-top: 10px;
+    background-color: #d5f9b5;
+}
+
+#right #cart_table #discount table tr td {
+    padding: 15px 0 10px 20px;
+}
+
+#right #cart_table #discount table tr td p {
+    margin: 8px 0 0 0;
+}
+
+#right #cart_table #discount table tr td p span{
+    font-size: 85%;
+}
+
+#right #cart_table #discount input[name="discount"] {
+    width: 134px;
+    border: 1px solid #7cf115;
+    text-align: left;
+    padding: 0 3px;
+}
+
+#right #cart_table #discount input[name="discount_submit"] {
+    background: url(../images/cart_discount.png) no-repeat;
+    width: 172px;
+    height: 28px;
+    border: none;
+}
+
+#right #cart_table #discount input[name="discount_submit"]:hover {
+    background: url(../images/cart_discount_active.png) no-repeat;
+}
+
+#right #cart_table #recalc {
+    float: left;
+    margin-top: 25px;
+}
+
+#right #cart_table #order p, #right #cart_table #recalc p {
+    text-align: center;
+    margin: 7px 30px;
+}
+
+#right #cart_table #recalc input[name="recalc_submit"], #right #cart_table #order input[name="order_submit"] {
+    width: 173px;
+    height: 29px;
+    border: none;
+}
+
+#right #cart_table #recalc input[name="recalc_submit"] {
+    background: url("../images/cart_recalc.png") no-repeat;
+}
+
+#right #cart_table #recalc input[name="recalc_submit"]:hover {
+    background: url("../images/cart_recalc_active.png") no-repeat;
+}
+
+#right #cart_table #order {
+    float: right;
+}
+
+#right #cart_table #order input[name="order_submit"] {
+    background: url("../images/cart_order.png") no-repeat;
+}
+
+#right #cart_table #order input[name="order_submit"]:hover {
+    background: url("../images/cart_order_active.png") no-repeat;
+}
+
+#right #cart_table #order p:first-child span{
+    font-weight: bold;
+}
+
+/* order_page */
+
+#right #order_content table {
+    font-size: 90%;
+}
+
+#right #order_content table:first-child {
+    border-collapse: separate;
+    border-spacing: 0 3px;
+}
+
+#right #order_content table tr {
+    background-color: #ffffff;
+}
+
+#right #order_content table td {
+    padding: 3px;
+    vertical-align: middle;
+}
+
+#right #order_content table:first-child tr td:first-child {
+    padding: 0 60px 0 10px;
+}
+
+#right #order_content table input[type="text"], #right #order_content table select, #right #order_content table textarea {
+    background-color: #e8ffd6;
+    border: 1px solid #8ffa3b;
+    border-radius: 3px;
+    overflow: hidden;
+    resize: none;
+    padding: 0;
+}
+
+#right #order_content table input[type="text"] {
+    width: 180px;
+    height: 20px;
+}
+
+#right #order_content table select {
+    width: 182px;
+    height: 24px;
+}
+
+#right #order_content table:nth-child(2) {
+    border-collapse: collapse;
+    margin-top: 10px
+}
+
+#right #order_content table:nth-child(2) td {
+    padding: 0;
+    margin: 0;
+}
+
+#right #order_content table:nth-child(2) p {
+    margin: 10px 0 10px 7px;
+}
+
+#right #order_content table input[name="order_submit"] {
+    background: url("../images/order_end.png") no-repeat;
+    width: 223px;
+    height: 28px;
+    border: none;
+    float: right;
+    margin-top: 20px;
+}
+
+#right #order_content table input[name="order_submit"]:hover {
+    background: url("../images/order_end_active.png") no-repeat;
+}
+
+#right #order_content table:last-child tr:last-child {
+    background-color: #f2f5fa;
 }
