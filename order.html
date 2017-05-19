@@ -108,16 +108,16 @@
                         <tr>
                             <td>Доставка:</td>
                             <td>
-                                <select name="delivery">
-                                    <option value="0">Самовывоз</option>
-                                    <option value="1">Доставка (500 руб.)</option>
+                                <select name="delivery" onchange="hideDelivery(this)">
+                                    <option value="0">Доставка (500 руб.)</option>
+                                    <option value="1">Самовывоз</option>
                                 </select>
                             </td>
                         </tr>
                     </table>
                     <table>
                         <tr>
-                            <td>
+                            <td id="address_area">
                                 <p>Полный адрес(Страна, город, индекс, улица, дом, квартира):</p>
                                 <textarea name="address" cols="80" rows="6"></textarea>
                             </td>
