@@ -38,4 +38,9 @@ class configClass
      */
     public $adminName = "noTrueAcc";
     public $adminEmail = "notrueacc@mail.ru";
+
+    /**
+     * Конфиги сообщений
+     */
+    public $messagesTextDir = "library/messages/messagesText/";
 }

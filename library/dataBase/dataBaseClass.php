@@ -6,13 +6,13 @@
  * Time: 17:25
  */
 
-namespace library\dataBaseClass;
+namespace database;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/config/configClass.php";
 /**
  * Используем класс конфигурации
  */
-use config;
+use config\configClass;
 
 /**
  * Класс подключения к базе данных
@@ -30,7 +30,7 @@ class dataBaseClass
      */
     private function __construct()
     {
-        $this->config = new config\configClass();
+        $this->config = new configClass();
         $this->mysqli = new \mysqli($this->config->dataBaseHost, $this->config->dataBaseLogin, $this->config->dataBasePassword, $this->config->dataBaseSchema);
         $this->mysqli->query("SET NAME 'UTF8'");
     }
@@ -41,7 +41,7 @@ class dataBaseClass
      *
      * @return object_dataBaseClass
      */
-    private function getConnection()
+    public static function getConnection()
     {
         if(self::$dataBaseConnect == null)
         {

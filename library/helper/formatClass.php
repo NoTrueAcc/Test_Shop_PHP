@@ -10,7 +10,7 @@ namespace helper;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/config/configClass.php";
 
-use config;
+use config\configClass;
 
 /**
  * Класс помошник для проверки форматов данных а так же для получения данных в нужном формате
@@ -22,7 +22,7 @@ class formatClass
 
     public function __construct()
     {
-        $this->config = new config\configClass();
+        $this->config = new configClass();
     }
 
     /**

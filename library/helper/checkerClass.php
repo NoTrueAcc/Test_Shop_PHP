@@ -29,15 +29,15 @@ class checkerClass
     }
 
     /**
-     * Метод для проверки id на корректность
+     * Метод для проверки числа
      *
-     * @param $id
-     * @param может ли Id принимать значение === 0
-     * @return bool
+     * @param числ
+     * @param может ли принимать значение === 0
+     * @return Булево значение условия число целое, больше 0 и соответствует ли оно условию === 0
      */
-    public function checkId($id, $zero = false)
+    public function checkNumberIntMoreOrZero($number, $zero = false)
     {
-        if(!$this->isIntNumber($id) || $id < 0 || (!$zero && ($id === 0)))
+        if(!$this->isIntNumber($number) || $number < 0 || (!$zero && ($number === 0)))
         {
             return false;
         }
@@ -67,7 +67,7 @@ class checkerClass
      * @param $number
      * @return bool|int
      */
-    private function isIntNumber($number)
+    public function isIntNumber($number)
     {
         if(is_int($number) || is_string($number))
         {
