@@ -19,6 +19,12 @@ use helper\urlClass;
 use helper\checkerClass;
 use helper\formatClass;
 
+/**
+ * Абстрактный класс для выполнения запросов в БД, их обработки и проверки
+ *
+ * Class globalDataBaseAbstractClass
+ * @package database
+ */
 abstract class globalDataBaseAbstractClass
 {
     protected $dataBaseConnect;
@@ -38,7 +44,16 @@ abstract class globalDataBaseAbstractClass
         $this->tableName = $this->config->dataBasePrefix . $tableName;
     }
 
-    public function selectAll($order = false, $desc = false, $limit = false, $offset = false)
+    /**
+     * Возвращает значение всех полей по условиям
+     *
+     * @param bool сортировка
+     * @param bool обратная_сортировка?
+     * @param bool Лимит
+     * @param bool Смещение
+     * @return Двумерный_массив_с_данными_запроса
+     */
+    protected function selectAll($order = false, $desc = false, $limit = false, $offset = false)
     {
         $orderOrLimit = $this->selectOrderOrLimit($order, $desc, $limit, $offset);
         $query = "SELECT * FROM `" . $this->tableName . "`$orderOrLimit";
@@ -46,6 +61,17 @@ abstract class globalDataBaseAbstractClass
         return $this->dataBaseConnect->selectData($query);
     }
 
+    /**
+     * Возврщает данные запроса по условию поле == значение
+     *
+     * @param поле
+     * @param значение
+     * @param bool сортировка
+     * @param bool обратная_сортировка?
+     * @param bool Лимит
+     * @param bool Смещение
+     * @return Двумерный_массив_с_данными_запроса
+     */
     protected function selectAllOnField($field, $value, $order = false, $desc = false, $limit = false, $offset = false)
     {
         $orderOrLimit = $this->selectOrderOrLimit($order, $desc, $limit, $offset);
@@ -54,6 +80,15 @@ abstract class globalDataBaseAbstractClass
         return $this->dataBaseConnect->selectData($query, array($value));
     }
 
+    /**
+     * Проверяет наличие и корректность полученных данных по сортировке, лимиту, смещению
+     *
+     * @param bool сортировка
+     * @param bool обратная_сортировка?
+     * @param bool Лимит
+     * @param bool Смещение
+     * @return данные_к_запросу
+     */
     protected function selectOrderOrLimit($order, $desc, $limit, $offset)
     {
         $order = $order ? " ORDER BY `$order`" : '';

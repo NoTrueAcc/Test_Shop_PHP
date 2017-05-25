@@ -12,6 +12,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/globalDataBaseAbstra
 
 use database\globalDataBaseAbstractClass;
 
+/**
+ * Класс для работы с таблицей Orders
+ *
+ * Class orderClass
+ * @package database\tableClasses
+ */
 class orderClass extends globalDataBaseAbstractClass
 {
     public function __construct()
