@@ -1,0 +1,19 @@
+<table class="products">
+    <?php for($i = 0; $i < count($this->products); $i++) { ?>
+        <?=!(($i % 4) == 0) ? "<tr>" : ""?>;
+        <div class="intro_product">
+            <p class="img">
+                <img src="<?=$this->products[$i]['img']?>" alt="<?=$this->products[$i]['title']?>">
+            </p>
+            <p class="title">
+                <a href="<?=$this->products[$i]['link']?>"><?=$this->products[$i]['title']?></a>
+            </p>
+            <p class="price"><?=$this->products[$i]['price']?></p>
+            <p>
+                <a class="link_cart" href="<?=$this->products[$i]['link_cart']?>"></a>
+            </p>
+        </div>
+        <?=!((($i + 1) % 4) == 0) ? "</tr>" : ""?>;
+    <?php } ?>
+
+</table>

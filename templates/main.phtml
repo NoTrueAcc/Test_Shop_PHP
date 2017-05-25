@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><?=$this->title?></title>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="<?=$this->meta_desc?>">
+    <meta name="keywords" content="<?=$this->meta_key?>">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="styles/main.css" type="text/css">
+
+    <script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <img src="images/header.png" alt="DVD shop">
+        <div id="phone_data">
+            <p class="red">8-800-234-34-35</p>
+            <p class="blue">Время раблоты: с 09:00 до 21:00 <br> без перерыва и выходных</p>
+        </div>
+        <div id="cart">
+            <p>Корзина</p>
+            <p>Текущий заказ</p>
+            <p>В корзине <span><?=$this->cart_count?></span> товара <br> на сумму <span><?=$this->cart_summa?></span> руб.</p>
+            <a href="<?=$this->cart_link?>">Перейти в корзину</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="topmenu">
+        <ul>
+            <li>
+                <a href="<?=$this->link_index?>">ГЛАВНАЯ</a>
+            </li>
+            <li>
+                <img src="images/topmenu_border.png" alt="topmenu_border">
+            </li>
+            <li>
+                <a href="<?=$this->link_delivery?>">ОПЛАТА И ДОСТАВКА</a>
+            </li>
+            <li>
+                <img src="images/topmenu_border.png" alt="topmenu_border">
+            </li>
+            <li>
+                <a href="<?=$this->link_contacts?>">КОНТАКТЫ</a>
+            </li>
+        </ul>
+        <div id="search">
+            <form name="search" action="<?=$this->link_search?>" method="get">
+                <div>
+                    <input type="text" name="search_text" value="Поиск" onfocus="if(this.value == 'Поиск'){this.value = ''}" onblur="if(this.value == ''){this.value = 'Поиск'}">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="content">
+        <div id="left">
+            <div id="menu">
+                <div class="header">
+                    <h3>Разделы</h3>
+                </div>
+                <div id="items">
+                    <ul>
+                        <?php for($i = 0; $i < count($this->items); $i++) { ?>
+                            <li>
+                                <a href="<?=$this->items[$i]['link']?>"><?=$this->items[$i]['title']?></a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="right">
+            <?php include "content_" . $this->content . ".phtml"; ?>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <div id="pm">
+                <table>
+                    <tr>
+                        <td>Способы оплаты: </td>
+                        <td>
+                            <img src="images/pm.png" alt="payment">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="copy">
+                <p>Copyright &copy; Site.ru Все права защищены. </p>
+                <p id="counter">
+                    <img src="images/counter.png" alt="counter">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
