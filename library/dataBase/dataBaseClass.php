@@ -32,7 +32,7 @@ class dataBaseClass
     {
         $this->config = new configClass();
         $this->mysqli = new \mysqli($this->config->dataBaseHost, $this->config->dataBaseLogin, $this->config->dataBasePassword, $this->config->dataBaseSchema);
-        $this->mysqli->query("SET NAME 'UTF8'");
+        $this->mysqli->query("SET NAMES UTF8");
     }
 
 
@@ -85,7 +85,7 @@ class dataBaseClass
     {
         $resultData = $this->mysqli->query($this->getQuery($query, $params));
 
-        return (empty($query)) ? false : $this->setResultToArray($resultData);
+        return (empty($resultData)) ? false : $this->setResultToArray($resultData);
     }
 
     /**
@@ -131,9 +131,10 @@ class dataBaseClass
      */
     private function setResultToArray($resultData)
     {
-        while(($row = $resultData->fetch_assoc()) != false)
+        $resultDataArray = array();
+        while($row = $resultData->fetch_assoc())
         {
-            $resultDataArray = $row;
+            array_push($resultDataArray, $row);
         }
 
         return $resultDataArray;

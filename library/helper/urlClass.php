@@ -29,6 +29,31 @@ class urlClass
         $this->amp = $amp;
     }
 
+    /** Метод для создания объекта класса вывода страницы.
+     * Получает адрес необходимого класса через URI и возвращает новый объект класса в случае успеха*/
+    public function getContentClass()
+    {
+        $uri = $_SERVER['REQUEST_URI'];
+        $contentClassNameShort = preg_replace('/^\/([^\/^\?]*).*$/i',"$1" ,$uri);
+
+        if(file_exists($_SERVER['DOCUMENT_ROOT'] . $this->config->templateContentClassesDir . $contentClassNameShort . "ContentClass.php"))
+        {
+        require_once $_SERVER['DOCUMENT_ROOT'] . $this->config->templateContentClassesDir . $contentClassNameShort . "ContentClass.php";
+
+            $contentClassNameFull = "template\\" . $contentClassNameShort . "ContentClass";
+
+            return new $contentClassNameFull;
+        }
+        elseif(empty($contentClassNameShort))
+        {
+            require_once $_SERVER['DOCUMENT_ROOT'] . $this->config->templateContentClassesDir . "indexContentClass.php";
+
+            $contentClassNameFull = "template\\templateContentClasses\\indexContentClass";
+
+            return new $contentClassNameFull;
+        }
+    }
+
     /**
      * устанавливает значение амперсанта
      */
@@ -84,7 +109,40 @@ class urlClass
     }
 
     /**
-     * Возвращает адрес сайта
+     * Возвращает ссылку на элемент section
+     *
+     * @param $sectionId
+     * @return bool|mixed|string
+     */
+    public function sectionDataElementLink($sectionId)
+    {
+        return $this->returnURL("section?id=$sectionId");
+    }
+
+    /**
+     * Возвращает ссылку на элемент product
+     *
+     * @param $productId
+     * @return bool|mixed|string
+     */
+    public function productDataElementLink($productId)
+    {
+        return $this->returnURL("product?id=$productId");
+    }
+
+    /**
+     * Добавляет товар в корзину
+     *
+     * @param айди элемента
+     * @return ссылка_добавления_товара
+     */
+    public function addDataElementToCart($dataElementId)
+    {
+        return $this->returnURL("functions.php?func=add_to_cart&id=$dataElementId");
+    }
+
+    /**
+     * Возвращает адрес главной страницы
      */
     public function returnIndexUrl()
     {
@@ -92,11 +150,26 @@ class urlClass
     }
 
     /**
-     * Возвращает адрес главной страницы
+     * Возвращает адрес страницы корзины
      */
     public function returnCartUrl()
     {
         return $this->returnURL("cart");
+    }
+
+    public function returnDeliveryUrl()
+    {
+        return $this->returnURL("delivery");
+    }
+
+    public function returnContactsUrl()
+    {
+        return $this->returnURL("contacts");
+    }
+
+    public function returnSearchUrl()
+    {
+        return $this->returnURL("search");
     }
 
     /**
@@ -130,4 +203,6 @@ class urlClass
 
         return $url;
     }
+
+
 }

@@ -32,6 +32,7 @@ class configClass
     public $dataBaseSchema = "shopdvd-local";
     public $dataBasePrefix = "sdvd_";
     public $symQuery = "{?}";
+    public $productLimitDataOnPage = 32;
 
     /**
      * Конфиги админа
@@ -42,5 +43,16 @@ class configClass
     /**
      * Конфиги сообщений
      */
-    public $messagesTextDir = "library/messages/messagesText/";
+    public $messagesTextDir = "/messagesText/";
+
+    /**
+     * Директории
+     */
+    public $helperDir = "/library/helper/";
+    public $dataBaseDir = "/library/dataBase/";
+    public $messagesDir = "/library/messages/";
+    public $templateDir = "/library/template/";
+    public $templateContentClassesDir = "/library/template/templateContentClasses/";
+    public $productImagesDir = "/images/products/";
+    public $templatesPhtmlDir = "/templates/";
 }

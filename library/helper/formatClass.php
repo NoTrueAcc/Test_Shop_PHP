@@ -45,7 +45,7 @@ class formatClass
     {
         if(is_array($data))
         {
-            $checkedData = aray();
+            $checkedData = array();
 
             foreach ($data as $key => $value)
             {

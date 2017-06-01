@@ -56,6 +56,7 @@ abstract class globalDataBaseAbstractClass
     protected function selectAll($order = false, $desc = false, $limit = false, $offset = false)
     {
         $orderOrLimit = $this->selectOrderOrLimit($order, $desc, $limit, $offset);
+
         $query = "SELECT * FROM `" . $this->tableName . "`$orderOrLimit";
 
         return $this->dataBaseConnect->selectData($query);
@@ -94,8 +95,31 @@ abstract class globalDataBaseAbstractClass
         $order = $order ? " ORDER BY `$order`" : '';
         $desc = $desc ? " DESC" : '';
         $offset = $this->checker->isIntNumber($offset) ? " `$offset` ," : '';
-        $limit = $this->checker->checkNumberIntMoreOrZero($limit, true) ? " LIMIT $offset `$limit`" : '';
+        $limit = $this->checker->checkNumberIntMoreOrZero($limit, true) ? " LIMIT $offset $limit" : '';
 
         return $order . $desc . $limit;
+    }
+
+    /**
+     * Преобразует поступающие данные
+     *
+     * @param данные в виде массива
+     * @return преобразованные данные в виде массива
+     */
+    protected function transformData($dataElement)
+    {
+        if(is_array($dataElement) && !empty($dataElement))
+        {
+            for($i = 0; $i < count($dataElement); $i++)
+            {
+                $dataElement[$i] = $this->transformElement($dataElement[$i]);
+            }
+
+            return $dataElement;
+        }
+        elseif(!empty($dataElement))
+        {
+            return $this->transformElement($dataElement);
+        }
     }
 }

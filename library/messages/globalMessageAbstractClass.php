@@ -31,7 +31,7 @@ abstract class globalMessageAbstractClass
     public function __construct($messageFile)
     {
         $config = new configClass();
-        $this->data = parse_ini_file($config->messagesTextDir . $messageFile . ".ini");
+        $this->data = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . $config->messagesTextDir . $messageFile . ".ini");
     }
 
     /**

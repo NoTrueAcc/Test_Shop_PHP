@@ -325,6 +325,16 @@ body
     margin: 5px 0;
 }
 
+#right .intro_product p img {
+    width: 163px;
+    height: 235px;
+}
+
+#right .intro_product{
+    min-width: 185px;
+    min-height: 352px;
+}
+
 .link_cart {
     background: url('../images/cart.png') no-repeat;
     display: block;

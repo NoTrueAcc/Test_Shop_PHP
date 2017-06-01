@@ -24,4 +24,16 @@ class sectionClass extends globalDataBaseAbstractClass
     {
         parent::__construct('sections');
     }
+
+    public function getAllData()
+    {
+        return $this->transformData($this->selectAll('id'));
+    }
+
+    protected function transformElement($sectionDataElement)
+    {
+        $sectionDataElement['link'] = $this->url->sectionDataElementLink($sectionDataElement['id']);
+
+        return $sectionDataElement;
+    }
 }

@@ -1,6 +1,7 @@
 <table class="products">
     <?php for($i = 0; $i < count($this->products); $i++) { ?>
-        <?=!(($i % 4) == 0) ? "<tr>" : ""?>;
+        <?=(($i % 4) == 0) ? "<tr>" : ""?>
+        <td>
         <div class="intro_product">
             <p class="img">
                 <img src="<?=$this->products[$i]['img']?>" alt="<?=$this->products[$i]['title']?>">
@@ -8,12 +9,12 @@
             <p class="title">
                 <a href="<?=$this->products[$i]['link']?>"><?=$this->products[$i]['title']?></a>
             </p>
-            <p class="price"><?=$this->products[$i]['price']?></p>
+            <p class="price"><?=$this->products[$i]['price']?> руб.</p>
             <p>
                 <a class="link_cart" href="<?=$this->products[$i]['link_cart']?>"></a>
             </p>
         </div>
-        <?=!((($i + 1) % 4) == 0) ? "</tr>" : ""?>;
+        </td>
+        <?=(((($i + 1) % 4)  == 0) || ((($i + 1) % 4)  == count($this->products))) ? "</tr>" : ""?>
     <?php } ?>
-
 </table>

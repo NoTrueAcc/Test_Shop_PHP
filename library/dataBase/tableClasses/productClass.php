@@ -29,4 +29,18 @@ class productClass extends globalDataBaseAbstractClass
     {
         return $this->selectAllOnField('section_id', $sectionIdValue);
     }
+
+    public function getAllData($limit)
+    {
+        return $this->transformData($this->selectAll('date', true, $limit));
+    }
+
+    protected function transformElement($productDataElement)
+    {
+        $productDataElement['img'] = $this->config->productImagesDir . $productDataElement['img'];
+        $productDataElement['link'] = $this->url->productDataElementLink($productDataElement['id']);
+        $productDataElement['link_cart'] = $this->url->addDataElementToCart($productDataElement['id']);
+
+        return $productDataElement;
+    }
 }
