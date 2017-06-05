@@ -11,4 +11,3 @@ use helper\urlClass;
 
 $url = new urlClass();
 $viewContent = $url->getContentClass();
-

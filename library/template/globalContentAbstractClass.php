@@ -33,7 +33,7 @@ abstract class globalContentAbstractClass
 
     public function __construct()
     {
-        //session_start();
+        session_start();
         $this->config = new configClass();
         $this->url = new urlClass();
         $this->format = new formatClass();
@@ -42,6 +42,7 @@ abstract class globalContentAbstractClass
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->template = new templateClass($_SERVER['DOCUMENT_ROOT'] . $this->config->templatesPhtmlDir);
 
+        $this->template->setDataForReplace("content", $this->getContent());
         $this->template->setDataForReplace("title", $this->title);
         $this->template->setDataForReplace("meta_desc", $this->meta_desc);
         $this->template->setDataForReplace("meta_key", $this->meta_key);
@@ -51,7 +52,6 @@ abstract class globalContentAbstractClass
         $this->template->setDataForReplace("link_delivery", $this->url->returnDeliveryUrl());
         $this->template->setDataForReplace("link_contacts", $this->url->returnContactsUrl());
         $this->template->setDataForReplace("link_search", $this->url->returnSearchUrl());
-        $this->template->setDataForReplace("content", $this->getContent());
         $this->template->display("main");
     }
 

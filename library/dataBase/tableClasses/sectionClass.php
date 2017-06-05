@@ -30,6 +30,11 @@ class sectionClass extends globalDataBaseAbstractClass
         return $this->transformData($this->selectAll('id'));
     }
 
+    public function getSectionDataOnId($id)
+    {
+        return $this->selectAllOnField('id', $id);
+    }
+
     protected function transformElement($sectionDataElement)
     {
         $sectionDataElement['link'] = $this->url->sectionDataElementLink($sectionDataElement['id']);

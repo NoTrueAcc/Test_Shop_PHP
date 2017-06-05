@@ -49,7 +49,7 @@ class formatClass
 
             foreach ($data as $key => $value)
             {
-                $checkedData[$key] = $this->checkDataFromXSS($data);
+                $checkedData[$key] = $this->checkDataFromXSS($value);
             }
 
             return $checkedData;

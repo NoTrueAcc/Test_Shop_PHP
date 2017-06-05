@@ -29,8 +29,13 @@ class urlClass
         $this->amp = $amp;
     }
 
-    /** Метод для создания объекта класса вывода страницы.
-     * Получает адрес необходимого класса через URI и возвращает новый объект класса в случае успеха*/
+    /**
+     * Возвращает класс для отрисовки страницы.
+     * Если URI пустое - возвращает главную страницу.
+     * Иначе выводит NotFound
+     *
+     * @return mixed
+     */
     public function getContentClass()
     {
         $uri = $_SERVER['REQUEST_URI'];
@@ -40,7 +45,7 @@ class urlClass
         {
         require_once $_SERVER['DOCUMENT_ROOT'] . $this->config->templateContentClassesDir . $contentClassNameShort . "ContentClass.php";
 
-            $contentClassNameFull = "template\\" . $contentClassNameShort . "ContentClass";
+            $contentClassNameFull = "template\\templateContentClasses\\" . $contentClassNameShort . "ContentClass";
 
             return new $contentClassNameFull;
         }
@@ -52,6 +57,26 @@ class urlClass
 
             return new $contentClassNameFull;
         }
+        else
+        {
+            require_once $_SERVER['DOCUMENT_ROOT'] . $this->config->templateContentClassesDir . "notFoundContentClass.php";
+
+            $contentClassNameFull = "template\\templateContentClasses\\notFoundContentClass";
+
+            return new $contentClassNameFull;
+        }
+    }
+
+    public function getLinkSort($sortBy, $up)
+    {
+        $thisUrl = $this->getThisUrl();
+        $thisUrlParams = array('sort' => '', 'up' => '');
+        $thisUrl = $this->deleteOrSetGet($thisUrl, $thisUrlParams);
+
+        $thisUrlParams = array('sort' => "$sortBy", 'up' => "$up");
+        $thisUrl = $this->addGet($thisUrl, $thisUrlParams);
+
+        return $this->returnURL($thisUrl);
     }
 
     /**
@@ -109,6 +134,30 @@ class urlClass
     }
 
     /**
+     * Добавляет get параметры к адресу
+     *
+     * @param адрес
+     * @param массив_параметров
+     * @return адрес_с_get_параметрами
+     */
+    public function addGet($url, $params)
+    {
+        foreach ($params as $key => $value)
+        {
+            if(!preg_match('/\?+/', $url))
+            {
+                $url = preg_replace('/^(.*)$/', "$1?$key=$value", $url);
+            }
+            else
+            {
+                $url = preg_replace('/^(.*)$/', "$1&$key=$value", $url);
+            }
+        }
+
+        return $url;
+    }
+
+    /**
      * Возвращает ссылку на элемент section
      *
      * @param $sectionId
@@ -141,6 +190,26 @@ class urlClass
         return $this->returnURL("functions.php?func=add_to_cart&id=$dataElementId");
     }
 
+    /**
+     * Редирект страницы по ссыдке
+     *
+     * @param ссылка
+     */
+    public function redirect($link)
+    {
+        header("Location: $link");
+        exit();
+    }
+
+    /**
+     * Возвращает адрес несуществующей страницы
+     *
+     * @return bool|mixed|string
+     */
+    public function returnNotFoundUrl()
+    {
+        return $this->returnURL("notfound");
+    }
     /**
      * Возвращает адрес главной страницы
      */

@@ -101,9 +101,9 @@ abstract class globalDataBaseAbstractClass
     }
 
     /**
-     * Преобразует поступающие данные
+     * Преобразует поступающие данные и добавляет новые элементы массиву
      *
-     * @param данные в виде массива
+     * @param данные_в_виде_массива
      * @return преобразованные данные в виде массива
      */
     protected function transformData($dataElement)
@@ -121,5 +121,7 @@ abstract class globalDataBaseAbstractClass
         {
             return $this->transformElement($dataElement);
         }
+
+        return false;
     }
 }

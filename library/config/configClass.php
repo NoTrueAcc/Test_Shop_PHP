@@ -32,7 +32,7 @@ class configClass
     public $dataBaseSchema = "shopdvd-local";
     public $dataBasePrefix = "sdvd_";
     public $symQuery = "{?}";
-    public $productLimitDataOnPage = 32;
+    public $productLimitDataOnPage = 8;
 
     /**
      * Конфиги админа
