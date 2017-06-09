@@ -14,13 +14,17 @@ use template\globalContentAbstractClass;
 
 class notFoundContentClass extends globalContentAbstractClass
 {
-    protected $title = 'Страница не найдена';
-    protected $meta_key = '404 Страница не найдена';
-    protected $meta_desc = 'страница не найдена, страница не найдена 404, страницы не существует';
+    protected $title;
+    protected $meta_key;
+    protected $meta_desc;
 
     protected function getContent()
     {
         header("HTTP/1.0 404 Not Found");
+
+        $this->title = 'Страница не найдена';
+        $this->meta_key = '404 Страница не найдена';
+        $this->meta_desc = 'страница не найдена, страница не найдена 404, страницы не существует';
 
         return "notfound";
     }

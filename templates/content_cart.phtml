@@ -1,0 +1,74 @@
+<div id="cart_content">
+    <h2>Корзина</h2>
+    <?php if(count($this->cart)) : ?>
+    <div id="cart_table">
+        <table>
+            <tr>
+                <td colspan="2">Товар</td>
+                <td>Цена за 1 шт.</td>
+                <td>Количество</td>
+                <td>Стоимость</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <hr>
+                </td>
+            </tr>
+            <?php for($i = 0; $i < count($this->cart); $i++) { ?>
+            <tr>
+                <td>
+                    <img class="cart_img" src="<?=$this->cart[$i]['img']?>" alt="<?=$this->cart[$i]['title']?>">
+                </td>
+                <td class="left_text"><a href="<?=$this->cart[$i]['link_product']?>"><?=$this->cart[$i]['title']?></a></td>
+                <td><?=$this->cart[$i]['price']?> руб.</td>
+                <td class="cart_count">
+                    <input type="text" name="count" value="<?=$this->cart[$i]['count']?>"> шт.
+                </td>
+                <td class="bold_text"><?=$this->cart[$i]['summa']?> руб.</td>
+                <td>
+                    <a href="<?=$this->cart[$i]['link_delete']?>" class="link_delete">x удалить</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <hr>
+                </td>
+            </tr>
+            <?php } ?>
+        </table>
+        <div id="discount">
+            <form name="discount" action="#" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            <p>Введите номер купона со скидкой <br> <span>(если есть)</span></p>
+                        </td>
+                        <td>
+                            <input type="text" name="discount">
+                        </td>
+                        <td>
+                            <input type="submit" name="discount_submit" value="">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="recalc">
+            <form name="recalc" action="#" method="post">
+                <p><input type="submit" name="recalc_submit" value=""></p>
+            </form>
+        </div>
+        <div id="order">
+            <p>Итого: <span><?=$this->cart_full_summa?> руб.</span></p>
+            <form name="order" action="#" method="post">
+                <p><input type="submit" name="order_submit" value=""></p>
+            </form>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <?php else : ?>
+    <p class="cart_empty_text">Вы не добавили ни одного товара.</p>
+    <p class="cart_empty_text"><a href="<?=$this->link_index?>">Продолжить покупки</a></p>
+    <?php endif; ?>
+</div>

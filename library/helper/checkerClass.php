@@ -71,7 +71,7 @@ class checkerClass
     {
         if(is_int($number) || is_string($number))
         {
-            return preg_match('/^-?[1-9][0-9]*|0$/', $number);
+            return preg_match('/^((-?[1-9][0-9]*)|(0))$/', $number);
         }
 
         return false;

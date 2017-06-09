@@ -32,7 +32,17 @@ class sectionClass extends globalDataBaseAbstractClass
 
     public function getSectionDataOnId($id)
     {
+        if(!$this->checker->checkNumberIntMoreOrZero($id))
+        {
+            $this->url->redirectNotFound();
+        }
+
         return $this->selectAllOnField('id', $id);
+    }
+
+    public function getSectionTitleOnId($id)
+    {
+        return $this->selectFieldOnId('title', $id);
     }
 
     protected function transformElement($sectionDataElement)

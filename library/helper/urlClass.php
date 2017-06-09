@@ -190,6 +190,11 @@ class urlClass
         return $this->returnURL("functions.php?func=add_to_cart&id=$dataElementId");
     }
 
+    public function deleteDataElementFromCart($dataElementId)
+    {
+        return $this->returnURL("functions.php?func=delete_from_cart&id=$dataElementId");
+    }
+
     /**
      * Редирект страницы по ссыдке
      *
@@ -198,6 +203,12 @@ class urlClass
     public function redirect($link)
     {
         header("Location: $link");
+        exit();
+    }
+
+    public function redirectNotFound()
+    {
+        header("Location: " . $this->returnNotFoundUrl());
         exit();
     }
 
@@ -229,6 +240,17 @@ class urlClass
     public function returnDeliveryUrl()
     {
         return $this->returnURL("delivery");
+    }
+
+    /**
+     * Ссылка на раздел
+     *
+     * @param $sectionId
+     * @return bool|mixed|string
+     */
+    public function returnSectionUrl($sectionId)
+    {
+        return $this->returnURL("section?id=$sectionId");
     }
 
     public function returnContactsUrl()
@@ -272,6 +294,4 @@ class urlClass
 
         return $url;
     }
-
-
 }

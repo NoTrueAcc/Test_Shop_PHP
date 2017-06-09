@@ -33,7 +33,7 @@ class configClass
     public $dataBasePrefix = "sdvd_";
     public $symQuery = "{?}";
     public $productLimitDataOnPage = 8;
-
+    public $othersLimit = 5;
     /**
      * Конфиги админа
      */

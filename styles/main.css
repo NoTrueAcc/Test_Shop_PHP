@@ -456,6 +456,8 @@ body
 
 #right #others .intro_product {
     background: none;
+    width: 100px;
+    height: 240px;
 }
 
 #right #others h3 {
@@ -463,14 +465,24 @@ body
 }
 
 #right #others .intro_product img {
-    width: 108px;
+    width: 85%;
+    height: 50%;
 }
 
 #right #others .intro_product p.price{
     font-weight: normal;
 }
 
-/*cart_page*/
+#right #others a.link_cart {
+    left: 0;
+    bottom: 0;
+}
+
+#right #product a.link_cart {
+    position: static;
+}
+
+    /*cart_page*/
 
 #right #cart_content h2, #right #order_content h2 {
     font-weight: normal;
@@ -482,6 +494,25 @@ body
     border: 1px solid #5F9EA0;
     border-radius: 10px;
     box-shadow: #B0E0E6 2px 2px;
+}
+
+#right p.cart_empty_text {
+    font-size: 100%;
+    display: block;
+    padding-left: 20px;
+    color: #0480ba;
+}
+
+#right p.cart_empty_text a {
+    font-size: 110%;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #B0E0E6;
+    padding: 5px;
+}
+
+#right td.left_text a {
+    text-decoration: none;
 }
 
 #right #cart_table table tr:first-child td {

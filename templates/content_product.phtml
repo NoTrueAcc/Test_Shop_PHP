@@ -1,0 +1,78 @@
+<div id="hornav">
+    <table>
+        <tr>
+            <td>
+                <a href="<?=$this->link_index?>">Главная</a>
+            </td>
+            <td>
+                <img src="images/hornav_arrow.png" alt="">
+            </td>
+            <td>
+                <a href="<?=$this->link_section?>"><?=$this->section_name?></a>
+            </td>
+            <td>
+                <img src="images/hornav_arrow.png" alt="">
+            </td>
+            <td><?=$this->products[0]['title']?></td>
+        </tr>
+    </table>
+</div>
+<div id="product">
+    <table>
+        <tr>
+            <td class="product_img">
+                <img src="<?=$this->products[0]['img']?>" alt="<?=$this->products[0]['title']?>">
+            </td>
+            <td class="top_desc">
+                <p>Название: <span class="title"><?=$this->products[0]['title']?></span></p>
+                <p>Год выхода: <span><?=$this->products[0]['year']?></span></p>
+                <p>Жанр: <span><?=$this->section_name?></span></p>
+                <p>Страна-производитель: <span><?=$this->products[0]['country']?></span></p>
+                <p>Режиссер: <span><?=$this->products[0]['director']?></span></p>
+                <p>Продолжительность: <span><?=$this->products[0]['play']?></span></p>
+                <p>В ролях: <span><?=$this->products[0]['cast']?></span></p>
+                <table class="price_cart">
+                    <tr>
+                        <td>
+                            <p class="price"><?=$this->products[0]['price']?> руб.</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a class="link_cart" href="<?=$this->products[0]['link_cart']?>"></a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p>Описание: </p>
+                <p class="desc"><?=$this->products[0]['description']?></p>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="others">
+    <h3>С этим товаром также заказывают:</h3>
+    <table class="products">
+        <tr>
+            <?php for($i = 0; $i < count($this->others); $i++) { ?>
+            <td>
+                <div class="intro_product">
+                    <p class="img">
+                        <img src="<?=$this->others[$i]['img']?>" alt="<?=$this->others[$i]['title']?>">
+                    </p>
+                    <p class="title">
+                        <a href="<?=$this->others[$i]['link']?>"><?=$this->others[$i]['title']?></a>
+                    </p>
+                    <p class="price"><?=$this->others[$i]['price']?> руб.</p>
+                    <p>
+                        <a class="link_cart" href="<?=$this->others[$i]['link_cart']?>"></a>
+                    </p>
+                </div>
+            </td>
+            <?php } ?>
+        </tr>
+    </table>
+</div>

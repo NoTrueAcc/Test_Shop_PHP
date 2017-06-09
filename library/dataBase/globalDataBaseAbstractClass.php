@@ -63,6 +63,21 @@ abstract class globalDataBaseAbstractClass
     }
 
     /**
+     * Возвращает значение роля по id
+     *
+     * @param $field
+     * @param $id
+     * @return mixed
+     */
+    protected function selectFieldOnId($field, $id)
+    {
+        $query = "SELECT `" . $field . "` FROM " . $this->tableName . " WHERE `id` = $id";
+        $arrayData = $this->dataBaseConnect->selectData($query);
+
+        return $arrayData[0][$field];
+    }
+
+    /**
      * Возврщает данные запроса по условию поле == значение
      *
      * @param поле

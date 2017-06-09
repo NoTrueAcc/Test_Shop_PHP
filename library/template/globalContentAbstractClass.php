@@ -42,6 +42,7 @@ abstract class globalContentAbstractClass
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->template = new templateClass($_SERVER['DOCUMENT_ROOT'] . $this->config->templatesPhtmlDir);
 
+        $this->setInfoCart();
         $this->template->setDataForReplace("content", $this->getContent());
         $this->template->setDataForReplace("title", $this->title);
         $this->template->setDataForReplace("meta_desc", $this->meta_desc);
@@ -53,6 +54,16 @@ abstract class globalContentAbstractClass
         $this->template->setDataForReplace("link_contacts", $this->url->returnContactsUrl());
         $this->template->setDataForReplace("link_search", $this->url->returnSearchUrl());
         $this->template->display("main");
+    }
+
+    private function setInfoCart()
+    {
+        $dataListCartIds = !isset($_SESSION['cart']) ? array() : explode(',', $_SESSION['cart']);
+        $dataListCartIdsCount = count($dataListCartIds);
+        $dataListCartIdsSumma = $this->product->getCartPriceOnIds($dataListCartIds);
+        $this->template->setDataForReplace('cart_count', $dataListCartIdsCount);
+        $this->template->setDataForReplace('cart_summa', $dataListCartIdsSumma);
+
     }
 
     abstract protected function getContent();

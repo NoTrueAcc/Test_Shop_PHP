@@ -36,6 +36,41 @@ class productClass extends globalDataBaseAbstractClass
         return $this->selectAllOnField('section_id', $sectionId);
     }
 
+    public function selectAllOnProductId($productId)
+    {
+        return $this->transformData($this->selectAllOnField('id', $productId));
+    }
+
+    /**
+     * ПРоверяет существование id
+     *
+     * @param $id
+     * @return bool
+     */
+    public function isExistsId($id)
+    {
+        if(!$this->checker->checkNumberIntMoreOrZero($id) || !$this->isExistsFieldValue('id', $id))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Проверяет существование значения для поля
+     *
+     * @param $field
+     * @param $value
+     * @return bool
+     */
+    private function isExistsFieldValue($field, $value)
+    {
+        $result = $this->selectAllOnField($field, $value);
+
+        return !empty($result) ? true : false;
+    }
+
     /**
      * Получить все данные
      *
@@ -72,6 +107,8 @@ class productClass extends globalDataBaseAbstractClass
     }
 
     /**
+     * Получает сортированные данные с определенным id секции
+     *
      * @param $id
      * @param $sortColumn
      * @param $desc
@@ -88,6 +125,54 @@ class productClass extends globalDataBaseAbstractClass
 
             return $this->transformData($this->selectAllOnField('section_id', $sectionId, $sortColumn, $desc));
         }
+    }
+
+    public function getOtherProducts($sectionId, $productId)
+    {
+        $query = "SELECT * FROM " . $this->tableName . " WHERE `section_id` = " . $this->config->symQuery . " AND `id` != $productId ORDER BY RAND() LIMIT " . $this->config->othersLimit;
+
+        return $this->transformData($this->dataBaseConnect->selectData($query, array($sectionId)));
+    }
+
+    public function getAllOnIds($ids)
+    {
+        if(!count($ids))
+        {
+            return false;
+        }
+
+        $queryIds = array();
+        $queryIdsData = array();
+
+        foreach($ids as $key => $value)
+        {
+            $queryIds[] = $this->config->symQuery;
+            $queryIdsData[] =  $value;
+        }
+
+        $queryIds = implode(',', $queryIds);
+        $query = "SELECT * FROM `" . $this->tableName . "` WHERE `id` IN ($queryIds)";
+
+        return $this->transformData($this->dataBaseConnect->selectData($query, $queryIdsData));
+    }
+
+    public function getCartPriceOnIds($cartProductIds)
+    {
+        $productDataList = $this->getAllOnIds($cartProductIds);
+        $productPriceOnIds = array();
+        $fullPriceOnIds = 0;
+
+        for($i = 0; $i < count($productDataList); $i++)
+        {
+            $productPriceOnIds[$productDataList[$i]['id']] = $productDataList[$i]['price'];
+        }
+
+        for($i = 0; $i < count($cartProductIds); $i++)
+        {
+            $fullPriceOnIds += $productPriceOnIds[$cartProductIds[$i]];
+        }
+
+        return $fullPriceOnIds;
     }
 
     /**

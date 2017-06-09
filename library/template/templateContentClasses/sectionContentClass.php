@@ -21,6 +21,12 @@ class sectionContentClass extends globalContentAbstractClass
         $sortColumn = isset($this->data['sort']) ? $this->data['sort'] : '';
         $desc = isset($this->data['up']) ? $this->data['up'] : '';
         $this->sectionInfo = $this->section->getSectionDataOnId($this->data['id']);
+
+        if($this->sectionInfo == false)
+        {
+            $this->url->redirectNotFound();
+        }
+
         $this->title = $this->sectionInfo[0]['title'];
         $this->meta_key = 'Список фильмов из раздела ' . $this->sectionInfo[0]['title'];
         $this->meta_desc = mb_strtolower('список фильмов, списокфильмов жанр, список фильмо жанр ' . $this->sectionInfo[0]['title']);
