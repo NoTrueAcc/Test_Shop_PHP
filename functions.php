@@ -13,6 +13,9 @@ switch ($func) {
     case 'delete_from_cart' :
         $manage->deleteFromCart();
         break;
+    case 'cart_data' :
+        $manage->updateCartData();
+        break;
     default : exit();
 }
 

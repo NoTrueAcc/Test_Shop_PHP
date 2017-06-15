@@ -635,11 +635,20 @@ body
     float: right;
 }
 
-#right #cart_table #order input[name="order_submit"] {
+#right #cart_table span.discount_text {
+    font-size: 80%;
+    font-weight: normal;
+ }
+
+#right #cart_table #order a.order_submit {
+    display:inline-block;
+    width: 173px;
+    height: 29px;
     background: url("../images/cart_order.png") no-repeat;
 }
 
-#right #cart_table #order input[name="order_submit"]:hover {
+#right #cart_table #order a.order_submit:hover {
+    display:inline-block;
     background: url("../images/cart_order_active.png") no-repeat;
 }
 

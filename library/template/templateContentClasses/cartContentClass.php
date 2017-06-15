@@ -36,6 +36,7 @@ class cartContentClass extends globalContentAbstractClass
 
         foreach($productCartUniqueIds as $uniqueId)
         {
+            $cart[$i]['id'] = $cartDataListOnIds[$uniqueId]['id'];
             $cart[$i]['title'] = $cartDataListOnIds[$uniqueId]['title'];
             $cart[$i]['img'] = $cartDataListOnIds[$uniqueId]['img'];
             $cart[$i]['price'] = $cartDataListOnIds[$uniqueId]['price'];
@@ -48,10 +49,22 @@ class cartContentClass extends globalContentAbstractClass
             $i++;
         }
 
+        $discount = (isset($_SESSION['discount']) && !empty($_SESSION['discount'])) ? $this->discount->getDiscountOnCode($_SESSION['discount']) : '';
+        $cartFullSumma = (!empty($discount)) ? (1 - $discount)*$cartFullSumma : $cartFullSumma;
+        $dicountCode = isset($_SESSION['discount']) ? $_SESSION['discount'] : '';
+
         $this->template->setDataForReplace('cart_full_summa', $cartFullSumma);
         $this->template->setDataForReplace('cart', $cart);
+        $this->template->setDataForReplace('discount', $dicountCode);
+        $this->template->setDataForReplace('discount_text', $this->getDiscountText($discount));
+        $this->template->setDataForReplace('order_submit', $this->url->returnOrderUrl());
 
         return 'cart';
+    }
+
+    private function getDiscountText($discount)
+    {
+        return !empty($discount) ? " (со скидкой " . $discount*100 . "%)" : '';
     }
 
     /**

@@ -168,6 +168,11 @@ class urlClass
         return $this->returnURL("section?id=$sectionId");
     }
 
+    public function getAction()
+    {
+        return $this->returnURL("functions.php");
+    }
+
     /**
      * Возвращает ссылку на элемент product
      *
@@ -240,6 +245,11 @@ class urlClass
     public function returnDeliveryUrl()
     {
         return $this->returnURL("delivery");
+    }
+
+    public function returnOrderUrl()
+    {
+        return $this->returnURL("order");
     }
 
     /**

@@ -61,4 +61,29 @@ class manageClass
             }
         }
     }
+
+    public function updateCartData()
+    {
+        if(empty($_SESSION['cart']))
+        {
+            return false;
+        }
+
+       unset($_SESSION['cart']);
+
+       foreach ($this->data as $key => $value)
+       {
+           if(preg_match('/^count_[0-9]*$/i', $key))
+           {
+               $id = substr($key, strlen('count_'));
+
+               for($i = 0; $i < $value; $i++)
+               {
+                   $this->addToCart($id);
+               }
+           }
+       }
+
+       $_SESSION['discount'] = (isset($this->data['discount']) && !empty($this->data['discount'])) ? $this->data['discount'] : '';
+    }
 }

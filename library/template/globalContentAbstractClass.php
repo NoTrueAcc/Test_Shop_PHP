@@ -14,8 +14,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/library/helper/formatClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/template/templateClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/sectionClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/productClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/discountClass.php";
 
 use config\configClass;
+use database\tableClasses\discountClass;
 use database\tableClasses\sectionClass;
 use database\tableClasses\productClass;
 use helper\urlClass;
@@ -30,6 +32,7 @@ abstract class globalContentAbstractClass
     protected $template;
     protected $section;
     protected $product;
+    protected $discount;
 
     public function __construct()
     {
@@ -39,6 +42,7 @@ abstract class globalContentAbstractClass
         $this->format = new formatClass();
         $this->section = new sectionClass();
         $this->product = new productClass();
+        $this->discount = new discountClass();
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->template = new templateClass($_SERVER['DOCUMENT_ROOT'] . $this->config->templatesPhtmlDir);
 
@@ -51,6 +55,7 @@ abstract class globalContentAbstractClass
         $this->template->setDataForReplace("link_index", $this->url->returnIndexUrl());
         $this->template->setDataForReplace("link_cart", $this->url->returnCartUrl());
         $this->template->setDataForReplace("link_delivery", $this->url->returnDeliveryUrl());
+        $this->template->setDataForReplace('action', $this->url->getAction());
         $this->template->setDataForReplace("link_contacts", $this->url->returnContactsUrl());
         $this->template->setDataForReplace("link_search", $this->url->returnSearchUrl());
         $this->template->display("main");

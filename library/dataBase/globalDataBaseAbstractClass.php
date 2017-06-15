@@ -115,6 +115,13 @@ abstract class globalDataBaseAbstractClass
         return $order . $desc . $limit;
     }
 
+    protected function selectColumnOnFieldValue($field, $value, $column)
+    {
+        $query = "SELECT `$column` FROM " . $this->tableName . " WHERE `$field` = " . $this->config->symQuery;
+
+        return $this->dataBaseConnect->selectCell($query, array($value));
+    }
+
     /**
      * Преобразует поступающие данные и добавляет новые элементы массиву
      *

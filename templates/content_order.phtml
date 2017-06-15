@@ -1,0 +1,53 @@
+<div id="order_content">
+    <h2>Оформление заказа</h2>
+    <form name="order" action="<?=$this->action?>" method="post">
+        <table>
+            <tr>
+                <td>ФИО:</td>
+                <td>
+                    <input type="text" name="name" value="<?=$this->name?>">
+                </td>
+            </tr>
+            <tr>
+                <td>Телефон:</td>
+                <td>
+                    <input type="text" name="phone" value="<?=$this->phone?>">
+                </td>
+            </tr>
+            <tr>
+                <td>E-mail:</td>
+                <td>
+                    <input type="text" name="email" value="<?=$this->email?>">
+                </td>
+            </tr>
+            <tr>
+                <td>Доставка:</td>
+                <td>
+                    <select name="delivery" onchange="hideDelivery(this)">
+                        <option value="0" <?php if($this->delivery == '0') { ?> selected="selected" <?php } ?>>Доставка (500 руб.)</option>
+                        <option value="1" <?php if($this->delivery == '1') { ?> selected="selected" <?php } ?>>Самовывоз</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td id="address_area">
+                    <p>Полный адрес(Страна, город, индекс, улица, дом, квартира):</p>
+                    <textarea name="address" cols="80" rows="6"><?=$this->address?></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Примечание к заказу:</p>
+                    <textarea name="notice" cols="80" rows="6"><?=$this->notice?></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" name="order_submit" value="">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

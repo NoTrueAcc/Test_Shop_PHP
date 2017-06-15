@@ -24,4 +24,11 @@ class discountClass extends globalDataBaseAbstractClass
     {
         parent::__construct('discounts');
     }
+
+    public function getDiscountOnCode($discountCode)
+    {
+        $result = $this->selectColumnOnFieldValue('code', $discountCode, 'value');
+
+        return $result['value'];
+    }
 }
