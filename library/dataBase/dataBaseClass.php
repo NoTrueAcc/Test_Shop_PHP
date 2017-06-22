@@ -123,6 +123,11 @@ class dataBaseClass
         return $resultDataArray[0];
     }
 
+    public function sendQuery($query, $params)
+    {
+        return $this->mysqli->query($this->getQuery($query, $params));
+    }
+
     /**
      * Преобразует полученные данные в массив
      *

@@ -16,9 +16,19 @@ switch ($func) {
     case 'cart_data' :
         $manage->updateCartData();
         break;
+    case 'order' :
+        $successAddOrder = $manage->addOrder();
+        break;
     default : exit();
 }
 
-$link = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $url->returnIndexUrl();
-header("Location: $link");
+if($successAddOrder)
+{
+    $url->redirectMessagePage();
+}
+else
+{
+    $link = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $url->returnIndexUrl();
+    header("Location: $link");
+}
 exit();

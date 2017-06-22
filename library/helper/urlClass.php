@@ -217,6 +217,11 @@ class urlClass
         exit();
     }
 
+    public function redirectMessagePage()
+    {
+        return $this->redirect('message');
+    }
+
     /**
      * Возвращает адрес несуществующей страницы
      *

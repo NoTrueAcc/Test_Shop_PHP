@@ -13,11 +13,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/library/config/configClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/helper/urlClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/helper/checkerClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/helper/formatClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/library/messages/systemMessageClass.php";
 
 use config\configClass;
 use helper\urlClass;
 use helper\checkerClass;
 use helper\formatClass;
+use messages\systemMessageClass;
 
 /**
  * Абстрактный класс для выполнения запросов в БД, их обработки и проверки
@@ -120,6 +122,68 @@ abstract class globalDataBaseAbstractClass
         $query = "SELECT `$column` FROM " . $this->tableName . " WHERE `$field` = " . $this->config->symQuery;
 
         return $this->dataBaseConnect->selectCell($query, array($value));
+    }
+
+    /**
+     * Метод для добавления записи
+     *
+     * @param $data
+     * @return bool
+     */
+    public function insertData($data)
+    {
+        if(!$this->check($data))
+        {
+            return false;
+        }
+
+        $fields = '';
+        $values = '';
+        foreach ($data as $field => $value)
+        {
+            $fields .= "`$field`,";
+            $values .= $this->config->symQuery . ",";
+
+        }
+
+        $fields = substr($fields, 0, -1);
+        $values = substr($values, 0, -1);
+        $query = "INSERT INTO `" . $this->tableName . "` ($fields) VALUES ($values)";
+
+        return $this->dataBaseConnect->sendQuery($query, array_values($data));
+    }
+
+    /**
+     * Проверка данных на корректность. Для каждого класса своя.
+     *
+     * @param $data
+     * @return bool
+     */
+    private function check($data)
+    {
+        $result = $this->checkData($data);
+
+        if($result === true)
+        {
+            return true;
+        }
+        else
+        {
+            $systemMessage = new systemMessageClass();
+
+            return $systemMessage->getMessage($result);
+        }
+    }
+
+    /**
+     * По умолчанию проверка возвращает false
+     *
+     * @param $data
+     * @return bool
+     */
+    protected function checkData($data)
+    {
+        return false;
     }
 
     /**

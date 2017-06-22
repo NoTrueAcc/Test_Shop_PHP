@@ -1,5 +1,7 @@
 <div id="order_content">
     <h2>Оформление заказа</h2>
+    <?php if($this->cart_count != 0) : ?>
+    <?php include "message.phtml"; ?>
     <form name="order" action="<?=$this->action?>" method="post">
         <table>
             <tr>
@@ -45,9 +47,19 @@
             </tr>
             <tr>
                 <td>
+                    <div id="order_count_price">
+                    <p>Выбрано товаров: <span><?=$this->cart_count?></span></p>
+                    <p>Сумма<?=$this->have_discount?>: <span><?=$this->order_price?></span></p>
+                    </div>
+                    <div class="clear"></div>
+                    <input type="hidden" name="func" value="order">
                     <input type="submit" name="order_submit" value="">
                 </td>
             </tr>
         </table>
     </form>
+    <?php else : ?>
+    <p class="cart_empty_text">Вы не добавили ни одного товара.</p>
+    <p class="cart_empty_text"><a href="<?=$this->link_index?>">Продолжить покупки</a></p>
+    <?php endif; ?>
 </div>

@@ -55,4 +55,16 @@ class configClass
     public $templateContentClassesDir = "/library/template/templateContentClasses/";
     public $productImagesDir = "/images/products/";
     public $templatesPhtmlDir = "/templates/";
+
+    /**
+     * Конфиги для функций
+     */
+    public $nameMinLength = 1;
+    public $nameMaxLength = 255;
+    public $phoneMinLength = 3;
+    public $phoneMaxLength = 20;
+    public $emailMinLength = 4;
+    public $emailMaxLength = 50;
+    public $textMinLength = 3;
+    public $textMaxLength = 65535;
 }

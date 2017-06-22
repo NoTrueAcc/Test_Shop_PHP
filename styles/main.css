@@ -719,7 +719,6 @@ body
     height: 28px;
     border: none;
     float: right;
-    margin-top: 20px;
 }
 
 #right #order_content table input[name="order_submit"]:hover {
@@ -739,4 +738,26 @@ body
 
 #message p {
     text-align: center;
+}
+
+#system_message {
+    text-align: center;
+    color: #ef0a05;
+}
+
+/* ORDER_CONTENT */
+
+#order_count_price {
+    float: right;
+    margin-top: 20px;
+    width: 223px;
+}
+
+#right #order_count_price p {
+    color: #0018ff;
+}
+
+#right #order_count_price p span {
+    color: #ef0a05;
+    font-weight: bold;
 }

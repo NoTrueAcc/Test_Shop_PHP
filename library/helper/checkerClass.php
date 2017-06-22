@@ -61,6 +61,66 @@ class checkerClass
         return (($number == 0) || ($number == 1));
     }
 
+    public function checkIds($ids)
+    {
+        return preg_match('/^\d+(,\d+)*$/', $ids);
+    }
+
+    public function checkPrice($price)
+    {
+        return ($this->isDouble($price) && ($price >= 0));
+    }
+
+    public function checkName($name)
+    {
+        if($this->checkLength($name, $this->config->nameMinLength, $this->config->nameMaxLength))
+        {
+            return preg_match('/^(([-a-z]+(\s[-a-z]+)?(\s[-a-z]+)?)|([-а-я]+(\s[-а-я]+)?(\s[-а-я]+)?))$/ui', $name);
+        }
+
+        return false;
+    }
+
+    public function checkPhone($phone)
+    {
+        if($this->checkLength($phone, $this->config->phoneMinLength, $this->config->phoneMaxLength))
+        {
+            return preg_match('/^[\+]?[\d]+[-\d\s]+$/', $phone);
+        }
+
+        return false;
+    }
+
+    public function checkEmail($email)
+    {
+        if($this->checkLength($email, $this->config->emailMinLength, $this->config->emailMaxLength))
+        {
+            return preg_match('/^(([0-9a-z][0-9a-z\.\-_]*?[0-9a-z_]+@([0-9a-z]+[0-9a-z\-]*[0-9a-z]+\.)+?[a-z]+)|([0-9а-я][0-9а-я\.\-_]*?[0-9а-я_]+@([0-9а-я]+[0-9а-я\-]*[0-9а-я]+\.)+?[а-я]+))$/ui', $email);
+        }
+
+        return false;
+    }
+
+    public function checkText($text, $empty)
+    {
+        if($empty && empty($text))
+        {
+            return true;
+        }
+
+        if(is_string($text) && $this->checkLength($text, $this->config->textMinLength, $this->config->textMaxLength))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function checkTimeStamp($timeStamp)
+    {
+        return $this->checkNumberIntMoreOrZero($timeStamp, true);
+    }
+
     /**
      * Метод для проверки яявляется ли число целым
      *
@@ -75,5 +135,15 @@ class checkerClass
         }
 
         return false;
+    }
+
+    private function isDouble($number)
+    {
+        return is_numeric($number);
+    }
+
+    private function checkLength($string, $minLength, $maxLength)
+    {
+        return ((strlen($string) >= $minLength) && (strlen($string) <= $maxLength));
     }
 }

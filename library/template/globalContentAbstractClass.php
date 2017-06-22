@@ -15,6 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/library/template/templateClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/sectionClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/productClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/discountClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/library/messages/messageClass.php";
 
 use config\configClass;
 use database\tableClasses\discountClass;
@@ -22,6 +23,7 @@ use database\tableClasses\sectionClass;
 use database\tableClasses\productClass;
 use helper\urlClass;
 use helper\formatClass;
+use messages\messageClass;
 
 abstract class globalContentAbstractClass
 {
@@ -33,6 +35,7 @@ abstract class globalContentAbstractClass
     protected $section;
     protected $product;
     protected $discount;
+    protected $message;
 
     public function __construct()
     {
@@ -45,6 +48,7 @@ abstract class globalContentAbstractClass
         $this->discount = new discountClass();
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->template = new templateClass($_SERVER['DOCUMENT_ROOT'] . $this->config->templatesPhtmlDir);
+        $this->message = new messageClass();
 
         $this->setInfoCart();
         $this->template->setDataForReplace("content", $this->getContent());
@@ -72,4 +76,19 @@ abstract class globalContentAbstractClass
     }
 
     abstract protected function getContent();
+
+    protected function getMessage()
+    {
+        if(!isset($_SESSION['message']) || empty($_SESSION['message']))
+        {
+            return '';
+        }
+        else
+        {
+            $messageText = $this->message->getMessageData($_SESSION['message']);
+            unset($_SESSION['message']);
+
+            return $messageText;
+        }
+    }
 }

@@ -10,10 +10,16 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/config/configClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/helper/formatClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/productClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/discountClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/orderClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/library/messages/systemMessageClass.php";
 
 use config\configClass;
 use helper\formatClass;
 use database\tableClasses\productClass;
+use database\tableClasses\discountClass;
+use database\tableClasses\orderClass;
+use messages\systemMessageClass;
 
 class manageClass
 {
@@ -21,6 +27,9 @@ class manageClass
     private $format;
     private $data;
     private $product;
+    private $discount;
+    private $order;
+    private $systemMessage;
 
     public function __construct()
     {
@@ -29,8 +38,21 @@ class manageClass
         $this->config = new configClass();
         $this->format = new formatClass();
         $this->product = new productClass();
+        $this->discount = new discountClass();
+        $this->order = new orderClass();
+        $this->systemMessage = new systemMessageClass();
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
+        $this->saveData();
     }
+
+    private function saveData()
+    {
+        foreach ($this->data as $key => $value)
+        {
+            $_SESSION[$key] = $value;
+        }
+    }
+
 
     public function addToCart($id = false)
     {
@@ -85,5 +107,43 @@ class manageClass
        }
 
        $_SESSION['discount'] = (isset($this->data['discount']) && !empty($this->data['discount'])) ? $this->data['discount'] : '';
+    }
+
+    public function addOrder()
+    {
+        $tempData = array();
+        $tempData['delivery'] = $this->data['delivery'];
+        $tempData['product_ids'] = $_SESSION['cart'];
+        $tempData['price'] = $this->getPrice();
+        $tempData['name'] = $this->data['name'];
+        $tempData['phone'] = $this->data['phone'];
+        $tempData['email'] = $this->data['email'];
+        $tempData['address'] = $this->data['address'];
+        $tempData['notice'] = $this->data['notice'];
+        $tempData['date_order'] = $this->format->getTimeStamp();
+        $tempData['date_send'] = 0;
+        $tempData['date_pay'] = 0;
+
+        $success = $this->order->insertData($tempData);
+
+        if($success)
+        {
+            $_SESSION = array();
+
+            return $this->systemMessage->getPageMessage('ADD_ORDER');
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private function getPrice()
+    {
+        $ids = isset($_SESSION['cart']) ? explode(',', $_SESSION['cart']) : array();
+        $price = $this->product->getCartPriceOnIds($ids);
+        $discount = isset($_SESSION['discount']) ? $this->discount->getDiscountOnCode($_SESSION['discount']) : 0;
+
+        return $price * (1 - $discount);
     }
 }
