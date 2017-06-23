@@ -175,6 +175,40 @@ class productClass extends globalDataBaseAbstractClass
         return $fullPriceOnIds;
     }
 
+    public function getTitleAndCountOnIds($idsString)
+    {
+        $idsArray = explode(',', $idsString);
+        $idsDataList = $this->getAllOnIds(array_unique($idsArray));
+        $titleDataOnIds = array();
+
+        for($i = 0; $i < count($idsDataList); $i++)
+        {
+            $titleDataOnIds[$i]['title'] = $idsDataList[$i]['title'];
+            $titleDataOnIds[$i]['count'] = $this->__getCountValueInArray($idsDataList[$i]['id'], $idsArray);
+        }
+
+        return $titleDataOnIds;
+    }
+
+    /**
+     * Находит количество совпадений в 2у-мерном массиве
+     *
+     * @param $id
+     * @param $idDataList
+     * @return int
+     */
+    private function __getCountValueInArray($value, $valueDataList)
+    {
+        $countValue = 0;
+
+        for($i = 0; $i < count($valueDataList); $i++)
+        {
+            $countValue = ($valueDataList[$i] == $value) ? ($countValue + 1) : $countValue;
+        }
+
+        return $countValue;
+    }
+
     /**
      * Проверка на корректность данных сортировки
      *

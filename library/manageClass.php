@@ -13,6 +13,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/product
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/discountClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/tableClasses/orderClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/library/messages/systemMessageClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/library/messages/mailClass.php";
 
 use config\configClass;
 use helper\formatClass;
@@ -20,6 +21,7 @@ use database\tableClasses\productClass;
 use database\tableClasses\discountClass;
 use database\tableClasses\orderClass;
 use messages\systemMessageClass;
+use messages\mailClass;
 
 class manageClass
 {
@@ -30,6 +32,7 @@ class manageClass
     private $discount;
     private $order;
     private $systemMessage;
+    private $mail;
 
     public function __construct()
     {
@@ -41,6 +44,7 @@ class manageClass
         $this->discount = new discountClass();
         $this->order = new orderClass();
         $this->systemMessage = new systemMessageClass();
+        $this->mail = new mailClass();
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->saveData();
     }
@@ -128,6 +132,18 @@ class manageClass
 
         if($success)
         {
+            $sendData = array();
+            $productDataList = $this->product->getTitleAndCountOnIds($tempData['product_ids']);
+            $sendData['products'] = $this->__getProductsDataToSend($productDataList);
+            $sendData['name'] = $tempData['name'];
+            $sendData['phone'] = $tempData['phone'];
+            $sendData['email'] = $tempData['email'];
+            $sendData['address'] = $tempData['address'];
+            $sendData['notice'] = $tempData['notice'];
+            $sendData['delivery'] = $tempData['delivery'];
+            $sendData['price'] = $tempData['price'];
+            $this->mail->sendMail($tempData['email'], $sendData, 'ORDER');
+
             $_SESSION = array();
 
             return $this->systemMessage->getPageMessage('ADD_ORDER');
@@ -145,5 +161,19 @@ class manageClass
         $discount = isset($_SESSION['discount']) ? $this->discount->getDiscountOnCode($_SESSION['discount']) : 0;
 
         return $price * (1 - $discount);
+    }
+
+    private function __getProductsDataToSend($productsDataList)
+    {
+        $productDataToSend = '';
+
+        for($i = 0; $i < count($productsDataList); $i++)
+        {
+            $productDataToSend .= $productsDataList[$i]['title'] . ' x ' . $productsDataList[$i]['count'] . ' | ';
+        }
+
+        $productDataToSend = substr($productDataToSend, 0, -3);
+
+        return $productDataToSend;
     }
 }
