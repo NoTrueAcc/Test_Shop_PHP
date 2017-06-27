@@ -761,3 +761,51 @@ body
     color: #ef0a05;
     font-weight: bold;
 }
+
+/* DELIVERY_CONTENT*/
+
+#delivery_page {
+    font-size: 95%;
+}
+
+#delivery_page p {
+    margin: 5px 0 0 0;
+}
+
+#delivery_page ul {
+    padding-bottom: 20px;
+}
+
+#delivery_page .delivery_phone {
+    font-weight: bold;
+    color: #0480ba;
+}
+
+#delivery_page .delivery_email {
+    font-weight: bold;
+    color: #0480ba;
+}
+
+/* CONTACTS_CONTENT*/
+
+#contacts_page {
+    font-size: 95%;
+}
+
+#contacts_page p {
+    margin: 10px;
+}
+
+#contacts_page .delivery_phone {
+    font-weight: bold;
+    color: #0480ba;
+}
+
+#contacts_page .delivery_email {
+    font-weight: bold;
+    color: #0480ba;
+}
+
+#contacts_page .contacts_address {
+    font-weight: bold;
+}

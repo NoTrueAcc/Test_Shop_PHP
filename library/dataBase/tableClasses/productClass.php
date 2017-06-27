@@ -134,6 +134,20 @@ class productClass extends globalDataBaseAbstractClass
         return $this->transformData($this->dataBaseConnect->selectData($query, array($sectionId)));
     }
 
+    public function getSearchProductsData($searchText, $order, $desc)
+    {
+        $searchFields = array(
+            'title',
+            'country',
+            'year',
+            'director',
+            'cast',
+            'description'
+        );
+
+        return $this->transformData(parent::getSearchDataList($searchText, $searchFields, $order, $desc));
+    }
+
     public function getAllOnIds($ids)
     {
         if(!count($ids))

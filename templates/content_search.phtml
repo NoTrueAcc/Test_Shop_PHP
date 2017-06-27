@@ -1,0 +1,13 @@
+<div id="search_result">
+    <?php if($this->search_text == '') : ?>
+    <h2>Вы задали пустой поисковый запрос!</h2>
+    <?php else : ?>
+    <?php if(!count($this->products)) : ?>
+    <h2>По Вашему запросу ничего не найдено!</h2>
+    <?php else : ?>
+    <?php include "table_products_top.phtml"; ?>
+    <h2>По вашему запросу найдены:</h2>
+    <?php include "table_products.phtml"; ?>
+    <?php endif; ?>
+    <?php endif; ?>
+</div>

@@ -107,11 +107,11 @@ abstract class globalDataBaseAbstractClass
      * @param bool Смещение
      * @return данные_к_запросу
      */
-    protected function selectOrderOrLimit($order, $desc, $limit, $offset)
+    protected function selectOrderOrLimit($order, $desc, $limit = false, $offset = false)
     {
         $order = $order ? " ORDER BY `$order`" : '';
         $desc = $desc ? " DESC" : '';
-        $offset = $this->checker->isIntNumber($offset) ? " `$offset` ," : '';
+        $offset = $this->checker->isIntNumber($offset) ? " $offset ," : '';
         $limit = $this->checker->checkNumberIntMoreOrZero($limit, true) ? " LIMIT $offset $limit" : '';
 
         return $order . $desc . $limit;
@@ -122,6 +122,39 @@ abstract class globalDataBaseAbstractClass
         $query = "SELECT `$column` FROM " . $this->tableName . " WHERE `$field` = " . $this->config->symQuery;
 
         return $this->dataBaseConnect->selectCell($query, array($value));
+    }
+
+    public function getSearchDataList($searchText, $searchFields, $order = false, $up = false)
+    {
+        $searchText = trim($searchText);
+
+        if(empty($searchFields) || ($searchText == ''))
+        {
+            return false;
+        }
+
+        $searchText = preg_replace('/\s+/i', ' ', $searchText);
+        $searchData = explode(' ', $searchText);
+        $where = '';
+        $logic = ' AND ';
+        $params = array();
+        $desc = ($up == 'up') ? true : false;
+        $order = $this->selectOrderOrLimit($order, $desc);
+
+        for($i = 0; $i < count($searchData); $i++)
+        {
+            $where .= '(';
+            for($j = 0; $j < count($searchFields); $j++)
+            {
+                $where .= (($j+1) == count($searchFields)) ? '`' . $searchFields[$j] . '` LIKE ' . $this->config->symQuery : '`' . $searchFields[$j] . '` LIKE ' . $this->config->symQuery . ' OR ';
+                $params[] = '%' . $searchData[$i] . '%';
+            }
+            $where .= (($i + 1) == count($searchData)) ? ')' : ')' . $logic;
+        }
+
+        $query = "SELECT * FROM " . $this->tableName . " WHERE ($where) $order";
+
+        return $this->dataBaseConnect->selectData($query, $params);
     }
 
     /**

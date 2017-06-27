@@ -22,6 +22,4 @@ class emailClass extends complexMessageAbstractClass
     {
         parent::__construct('emails');
     }
-
-
 }
