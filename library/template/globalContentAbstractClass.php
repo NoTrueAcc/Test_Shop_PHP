@@ -72,6 +72,7 @@ abstract class globalContentAbstractClass
         $dataListCartIdsSumma = $this->product->getCartPriceOnIds($dataListCartIds);
         $this->template->setDataForReplace('cart_count', $dataListCartIdsCount);
         $this->template->setDataForReplace('cart_summa', $dataListCartIdsSumma);
+        $this->template->setDataForReplace('cart_products_count_word', $this->__getProductsCountWord($dataListCartIdsCount));
 
     }
 
@@ -89,6 +90,29 @@ abstract class globalContentAbstractClass
             unset($_SESSION['message']);
 
             return $messageText;
+        }
+    }
+
+    private function __getProductsCountWord($productsCount)
+    {
+        $productsCountWords = array('товар', 'товара', 'товаров');
+
+        if((10 < $productsCount) && ($productsCount < 15))
+        {
+            return $productsCountWords[2];
+        }
+
+        if(preg_match('/^(.*)?[056789]$/', $productsCount))
+        {
+            return $productsCountWords[2];
+        }
+        elseif(preg_match('/^(.*)?[234]$/', $productsCount))
+        {
+            return $productsCountWords[1];
+        }
+        elseif(preg_match('/^(.*)?[1]$/', $productsCount))
+        {
+            return $productsCountWords[0];
         }
     }
 }

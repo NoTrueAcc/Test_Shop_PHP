@@ -1,0 +1,24 @@
+div.admin_page{
+    text-align: center;
+}
+
+div.admin_page p a {
+    font-size: 120%;
+    padding: 0 10px;
+}
+
+div.admin_page table.admin_stats_table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 100%;
+}
+
+div.admin_page table.admin_stats_table td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+div.admin_page table.admin_stats_table tr:first-child td {
+    font-weight: bold;
+}

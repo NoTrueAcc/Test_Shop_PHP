@@ -20,8 +20,8 @@ use config\configClass;
  */
 class urlClass
 {
-    private $config;
-    private $amp;
+    protected $config;
+    protected $amp;
 
     public function __construct($amp = true)
     {
@@ -285,7 +285,7 @@ class urlClass
      * @param bool $index
      * @return bool|mixed|string
      */
-    private function returnURL($url, $index = false)
+    protected function returnURL($url, $index = false)
     {
         if(!$index)
         {

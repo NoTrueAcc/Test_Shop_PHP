@@ -1,0 +1,21 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../../admin/styles/main.css" type="text/css">
+
+    <meta name="description" content="<?=$this->meta_desc?>">
+    <meta name="keywords" content="<?=$this->meta_key?>">
+    <meta charset="utf-8">
+
+    <title><?=$this->title?></title>
+</head>
+<body>
+<div class="admin_page">
+    <h1>Страница администратора</h1>
+    <hr>
+    <?php include 'menu.phtml'; ?>
+    <div id="content">
+        <?php include 'content_' . $this->content . '.phtml'; ?>
+    </div>
+</div>
+</body>
+</html>
