@@ -25,6 +25,11 @@ class urlClass
 
     public function __construct($amp = true)
     {
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
+
         $this->config = new configClass();
         $this->amp = $amp;
     }

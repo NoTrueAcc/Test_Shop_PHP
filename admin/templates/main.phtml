@@ -12,7 +12,14 @@
 <div class="admin_page">
     <h1>Страница администратора</h1>
     <hr>
-    <?php include 'menu.phtml'; ?>
+
+    <?php
+    if($this->admin_menu === 'true')
+    {
+        include 'menu.phtml';
+    }
+    ?>
+
     <div id="content">
         <?php include 'content_' . $this->content . '.phtml'; ?>
     </div>

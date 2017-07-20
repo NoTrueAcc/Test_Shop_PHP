@@ -22,7 +22,7 @@ class authClass
       $this->format = new formatClass();
     }
 
-    public function checkAuthUser($login, $password, $hash = true)
+    public function checkAdminAuth($login, $password, $hash = true)
     {
         $login = mb_strtolower($login);
         if($hash)

@@ -22,3 +22,19 @@ div.admin_page table.admin_stats_table td {
 div.admin_page table.admin_stats_table tr:first-child td {
     font-weight: bold;
 }
+
+/* Auth_page */
+
+#system_message {
+    color: #c00;
+    text-align: center;
+}
+
+#admin_auth_form form table{
+    margin: 0 auto;
+}
+
+#admin_auth_form form table input[type='submit']{
+    float: right;
+    width: 80px;
+}

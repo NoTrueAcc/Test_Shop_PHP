@@ -39,7 +39,6 @@ abstract class globalContentAbstractClass
 
     public function __construct()
     {
-        session_start();
         $this->config = new configClass();
         $this->url = new urlClass();
         $this->format = new formatClass();

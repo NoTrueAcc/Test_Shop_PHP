@@ -102,13 +102,33 @@ class urlClass extends \helper\urlClass
 
     public function returnLogoutAdminUrl()
     {
-        return $this->returnAdminURL('logout');
+        return parent::returnURL('functions.php?func=logout');
+    }
+
+    public function returnAuthAdminUrl()
+    {
+        return $this->returnAdminURL('auth');
+    }
+
+    public function redirectAuth()
+    {
+        parent::redirect($this->__returnAuthUrl());
+    }
+
+    public function redirectAdminIndex()
+    {
+        parent::redirect($this->returnIndexAdminUrl());
     }
 
     private function returnAdminURL($url = "")
     {
-        $url = !empty($url) ? substr($this->config->address, 0, -1) . "?view=$url" : $this->config->address;
+        $url = !empty($url) ? $this->config->address . "?view=$url" : $this->config->address;
 
         return $url;
+    }
+
+    private function __returnAuthUrl()
+    {
+        return $this->returnAdminURL('auth');
     }
 }

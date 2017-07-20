@@ -22,7 +22,7 @@ switch ($func) {
     default : exit();
 }
 
-if($successAddOrder)
+if(isset($successAddOrder) && $successAddOrder)
 {
     $url->redirectMessagePage();
 }

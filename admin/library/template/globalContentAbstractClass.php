@@ -10,6 +10,7 @@ namespace admin\template;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/config/configClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/urlClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/authClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/formatClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/template/templateClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/sectionClass.php";
@@ -21,6 +22,7 @@ use admin\config\configClass;
 use admin\database\tableClasses\discountClass;
 use admin\database\tableClasses\sectionClass;
 use admin\database\tableClasses\productClass;
+use admin\helper\authClass;
 use admin\helper\urlClass;
 use admin\helper\formatClass;
 use admin\messages\messageClass;
@@ -36,10 +38,10 @@ abstract class globalContentAbstractClass
     protected $product;
     protected $discount;
     protected $message;
+    protected $auth;
 
-    public function __construct()
+    public function __construct($checkAuth = true)
     {
-        session_start();
         $this->config = new configClass();
         $this->url = new urlClass();
         $this->format = new formatClass();
@@ -49,12 +51,24 @@ abstract class globalContentAbstractClass
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->template = new templateClass($_SERVER['DOCUMENT_ROOT'] . $this->config->templatesPhtmlDir);
         $this->message = new messageClass();
+        $this->auth = new authClass();
+
+        if($checkAuth && !$this->__checkAuth())
+        {
+            $this->url->redirectAuth();
+        }
+        elseif($this->__checkAuth())
+        {
+            $this->template->setDataForReplace('admin_menu', 'true');
+        }
 
         $this->__setMenuTemplateDataForReplace();
         $this->template->setDataForReplace("content", $this->getContent());
         $this->template->setDataForReplace('title', $this->title);
         $this->template->setDataForReplace('meta_desc', $this->meta_desc);
         $this->template->setDataForReplace('title', $this->meta_key);
+        $this->template->setDataForReplace('action', $this->url->getAction());
+        $this->template->setDataForReplace('message', $this->getMessage());
 
         $this->template->display("main");
     }
@@ -76,7 +90,7 @@ abstract class globalContentAbstractClass
     {
         if(!isset($_SESSION['message']) || empty($_SESSION['message']))
         {
-            return '';
+             return '';
         }
         else
         {
@@ -85,5 +99,15 @@ abstract class globalContentAbstractClass
 
             return $messageText;
         }
+    }
+
+    private function __checkAuth()
+    {
+        if (isset($_SESSION['login']) && isset($_SESSION['password']))
+        {
+            return $this->auth->checkAdminAuth($_SESSION['login'], $_SESSION['password']);
+        }
+
+        return false;
     }
 }

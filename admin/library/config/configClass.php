@@ -73,5 +73,5 @@ class configClass
      */
     public $secretWord = 'asdadasdDASdaa';
     public $adminLogin = 'admin';
-    public $adminPassHash = '';
+    public $adminPassHash = '0d9f59fed39dc98e176d3292d995df49';
 }

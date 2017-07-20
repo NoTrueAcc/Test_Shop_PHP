@@ -1,34 +1,29 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/library/manageClass.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/library/helper/urlClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/manageClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/urlClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/authClass.php";
 
-$manage = new manageClass();
-$url = new \helper\urlClass();
+$manage = new \manageClass();
+$url = new admin\helper\urlClass();
+$auth = new \admin\helper\authClass();
+
 $func = isset($_REQUEST['func']) ? $_REQUEST['func'] : '';
 
 switch ($func) {
-    case 'add_to_cart' :
-        $manage->addToCart();
+    case 'admin_auth' :
+        $link = $manage->adminLogin();
         break;
-    case 'delete_from_cart' :
-        $manage->deleteFromCart();
+    case 'logout' :
+        $manage->adminLogout();
         break;
-    case 'cart_data' :
-        $manage->updateCartData();
-        break;
-    case 'order' :
-        $successAddOrder = $manage->addOrder();
-        break;
-    default : exit();
+    default : break;
 }
 
-if($successAddOrder)
-{
-    $url->redirectMessagePage();
-}
-else
-{
-    $link = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $url->returnIndexUrl();
+    if(!isset($link))
+    {
+        $link = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $url->returnIndexAdminUrl();
+    }
+
     header("Location: $link");
-}
+
 exit();
