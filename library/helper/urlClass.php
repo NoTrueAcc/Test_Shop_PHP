@@ -98,6 +98,7 @@ class urlClass
     public function getThisUrl()
     {
         $uri = substr($_SERVER['REQUEST_URI'], 1);
+        $uri = preg_replace('/admin/i', '', $uri);
 
         return $this->config->address . $uri;
     }
@@ -175,7 +176,7 @@ class urlClass
 
     public function getAction()
     {
-        return $this->returnURL("functions.php");
+        return $this->returnURL("/functions.php");
     }
 
     /**

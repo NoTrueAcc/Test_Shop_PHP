@@ -148,6 +148,16 @@ class productClass extends globalDataBaseAbstractClass
         return $this->transformData(parent::getSearchDataList($searchText, $searchFields, $order, $desc));
     }
 
+    public function getDate($id)
+    {
+        return $this->selectFieldOnId('date', $id);
+    }
+
+    public function getImg($id)
+    {
+        return $this->selectFieldOnId('img', $id);
+    }
+
     public function getAllOnIds($ids)
     {
         if(!count($ids))
@@ -205,6 +215,89 @@ class productClass extends globalDataBaseAbstractClass
     }
 
     /**
+     * Выборка данных по определенному товару
+     *
+     * @param $id - айди товара
+     * @param $sectionTable - название таблицы 'секции'
+     * @return \admin\database\преобразованные|bool
+     */
+    public function getAllProductDataOnId($id, $sectionTable)
+    {
+        if(!$this->checker->checkIds($id))
+        {
+            return false;
+        }
+
+        $query = 'SELECT '
+            . $this->tableName . '.`id` , '
+            . $this->tableName . '.`section_id` , '
+            . $this->tableName . '.`img` , '
+            . $this->tableName . '.`title` as prod_title, '
+            . $this->tableName . '.`price` , '
+            . $this->tableName . '.`year` , '
+            . $this->tableName . '.`country` , '
+            . $this->tableName . '.`director` , '
+            . $this->tableName . '.`play` , '
+            . $this->tableName . '.`cast` , '
+            . $this->tableName . '.`description` , '
+            . $sectionTable    . '.`title` as section'
+            . ' FROM ' . $this->tableName
+            . ' INNER JOIN ' . $sectionTable . ' ON ' . $this->tableName . '.`section_id`' . ' = ' . $sectionTable . '.`id`'
+            . ' WHERE ' . $this->tableName . '.`id` = ' . $this->config->symQuery;
+
+        return $this->transformData($this->dataBaseConnect->selectRow($query, array($id)));
+    }
+
+    /**
+     * Выборка данных для подстановки в таблицу с товарами
+     *
+     * @param $sectionTable - название таблицы 'секции'
+     * @param $limit - лимит
+     * @param $offset - смещение
+     * @return \admin\database\преобразованные
+     */
+    public function getTableData($sectionTable, $limit, $offset)
+    {
+        $orderLimit = $this->selectOrderOrLimit(false, true, $limit, $offset);
+
+        $query = 'SELECT '
+            . $this->tableName . '.`id` , '
+            . $this->tableName . '.`section_id` , '
+            . $this->tableName . '.`img` , '
+            . $this->tableName . '.`title` , '
+            . $this->tableName . '.`price` , '
+            . $this->tableName . '.`year` , '
+            . $this->tableName . '.`country` , '
+            . $this->tableName . '.`director` , '
+            . $this->tableName . '.`play` , '
+            . $this->tableName . '.`cast` , '
+            . $this->tableName . '.`description` , '
+            . $this->tableName . '.`date` , '
+            . $sectionTable    . '.`title` as section'
+            . ' FROM ' . $this->tableName
+            . ' INNER JOIN ' . $sectionTable . ' ON ' . $this->tableName . '.`section_id`' . ' = ' . $sectionTable . '.`id`'
+            . $orderLimit;
+
+        return $this->transformData($this->dataBaseConnect->selectData($query));
+    }
+
+    public function getProductsCount()
+    {
+        $query = 'SELECT COUNT(`id`) as count FROM ' . $this->tableName;
+        $result = $this->dataBaseConnect->selectCell($query);
+
+        return $result['count'];
+    }
+
+    public function getCountProductsOnImageName($imgName)
+    {
+        $query = 'SELECT COUNT(`id`) as count FROM ' . $this->tableName . ' WHERE `img` = ' . $this->config->symQuery;
+        $result = $this->dataBaseConnect->selectCell($query, array($imgName));
+
+        return $result['count'];
+    }
+
+    /**
      * Находит количество совпадений в 2у-мерном массиве
      *
      * @param $id
@@ -239,8 +332,32 @@ class productClass extends globalDataBaseAbstractClass
     {
         $productDataElement['img'] = $this->config->productImagesDir . $productDataElement['img'];
         $productDataElement['link'] = $this->url->productDataElementLink($productDataElement['id']);
-        $productDataElement['link_cart'] = $this->url->addDataElementToCart($productDataElement['id']);
+
+        if(isset($productDataElement['date']))
+        {
+            $productDataElement['date'] = gmdate('Y-m-d H:i:s', $productDataElement['date']);
+        }
+
+        $productDataElement['link_admin_edit'] = $this->url->getLinkAdminEditProduct($productDataElement['id']);
+        $productDataElement['link_admin_delete'] = $this->url->getLinkAdminDeleteProduct($productDataElement['id']);
 
         return $productDataElement;
+    }
+
+    protected function checkData($data)
+    {
+        if(!$this->checker->checkIds($data['section_id']))          return 'UNKNOWN_ERROR';
+        if(!$this->checker->checkTitle($data['img'], false))        return 'ERROR_IMAGE_NAME';
+        if(!$this->checker->checkTitle($data['title'], false))      return 'ERROR_TITLE';
+        if(!$this->checker->checkPrice($data['price']))             return 'ERROR_PRICE';
+        if(!$this->checker->checkYear($data['year']))               return 'ERROR_YEAR';
+        if(!$this->checker->checkTitle($data['country'], false))    return 'ERROR_COUNTRY';
+        if(!$this->checker->checkTitle($data['director'], false))   return 'ERROR_DIRECTOR';
+        if(!$this->checker->checkPlay($data['play']))               return 'ERROR_PLAY';
+        if(!$this->checker->checkText($data['cast'], false))        return 'ERROR_CAST';
+        if(!$this->checker->checkText($data['description'], false)) return 'ERROR_DESCRIPTION';
+        if(!$this->checker->checkTimeStamp($data['date']))          return 'UNKNOWN_ERROR';
+
+        return true;
     }
 }

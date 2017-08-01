@@ -421,6 +421,13 @@ body
 
 #right #product .product_img {
     padding-right: 20px;
+    max-width: 200px;
+    max-height: 283px;
+}
+
+#right #product td.product_img img {
+    max-width: 200px;
+    max-height: 283px;
 }
 
 #right #product table span {

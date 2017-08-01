@@ -12,12 +12,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/config/configClass.php"
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/urlClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/authClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/formatClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/assets/paginationClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/template/templateClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/sectionClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/productClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/discountClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/messages/messageClass.php";
 
+use admin\assets\paginationClass;
 use admin\config\configClass;
 use admin\database\tableClasses\discountClass;
 use admin\database\tableClasses\sectionClass;
@@ -39,6 +41,7 @@ abstract class globalContentAbstractClass
     protected $discount;
     protected $message;
     protected $auth;
+    protected $paginator;
 
     public function __construct($checkAuth = true)
     {
@@ -52,6 +55,7 @@ abstract class globalContentAbstractClass
         $this->template = new templateClass($_SERVER['DOCUMENT_ROOT'] . $this->config->templatesPhtmlDir);
         $this->message = new messageClass();
         $this->auth = new authClass();
+        $this->paginator = new paginationClass();
 
         if($checkAuth && !$this->__checkAuth())
         {
@@ -66,7 +70,7 @@ abstract class globalContentAbstractClass
         $this->template->setDataForReplace("content", $this->getContent());
         $this->template->setDataForReplace('title', $this->title);
         $this->template->setDataForReplace('meta_desc', $this->meta_desc);
-        $this->template->setDataForReplace('title', $this->meta_key);
+        $this->template->setDataForReplace('meta_key', $this->meta_key);
         $this->template->setDataForReplace('action', $this->url->getAction());
         $this->template->setDataForReplace('message', $this->getMessage());
 

@@ -9,8 +9,10 @@
 namespace admin\helper;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/config/configClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/messages/systemMessageClass.php";
 
 use admin\config\configClass;
+use admin\messages\systemMessageClass;
 
 /**
  * Класс помошник для проверки данных на корректность
@@ -22,10 +24,12 @@ use admin\config\configClass;
 class checkerClass
 {
     private $config;
+    private $__systemMessage;
 
     public function __construct()
     {
         $this->config = new configClass();
+        $this->__systemMessage = new systemMessageClass();
     }
 
     /**
@@ -33,7 +37,7 @@ class checkerClass
      *
      * @param числ
      * @param может ли принимать значение === 0
-     * @return Булево значение условия число целое, больше 0 и соответствует ли оно условию === 0
+     * @return bool Булево значение условия число целое, больше 0 и соответствует ли оно условию === 0
      */
     public function checkNumberIntMoreOrZero($number, $zero = false)
     {
@@ -63,7 +67,7 @@ class checkerClass
 
     public function checkIds($ids)
     {
-        return preg_match('/^\d+(,\d+)*$/', $ids);
+        return preg_match('/^(\d)+(,\d+)*$/', $ids);
     }
 
     public function checkPrice($price)
@@ -116,6 +120,21 @@ class checkerClass
         return false;
     }
 
+    public function checkTitle($title, $empty)
+    {
+        if($empty && empty($title))
+        {
+            return true;
+        }
+
+        if(is_string($title) && $this->checkLength($title, $this->config->titleMinLength, $this->config->titleMaxLength))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public function checkTimeStamp($timeStamp)
     {
         return $this->checkNumberIntMoreOrZero($timeStamp, true);
@@ -135,6 +154,50 @@ class checkerClass
         }
 
         return false;
+    }
+
+    public function checkYear($year)
+    {
+        if(!$this->isIntNumber($year))
+        {
+            return false;
+        }
+
+        return $year > 0;
+    }
+
+    public function checkPlay($play)
+    {
+        return preg_match('/^\d{2}:\d{2}:\d{2}$/', $play);
+    }
+
+    public function checkImage($img)
+    {
+        $badExpansions = array('.php', '.phtml', '.php3', '.php4', '.html', '.htm');
+        $goodTypes = array('image/jpg', 'image/jpeg', 'image/png');
+
+        foreach ($badExpansions as $expansion)
+        {
+            if(preg_match("/$expansion\$/i", $img['name']))
+            {
+                return $this->__systemMessage->getMessage('ERROR_IMAGE_EXPANSION');
+            }
+        }
+
+        $imageType = $img['type'];
+        $imageSize = $img['size'];
+
+        if(!in_array($imageType, $goodTypes))
+        {
+            return $this->__systemMessage->getMessage('ERROR_IMAGE_TYPE');
+        }
+
+        if($imageSize > $this->config->maxImageSize)
+        {
+            return $this->__systemMessage->getMessage('ERROR_IMAGE_SIZE');
+        }
+
+        return true;
     }
 
     private function isDouble($number)

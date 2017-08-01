@@ -1,0 +1,55 @@
+<div id="admin_products_info">
+<h3>Товары</h3>
+<?php include 'message.phtml'; ?>
+<p class="link_add">
+    <a href="<?=$this->link_add?>">Добавить новый товар</a>
+</p>
+<table class="info">
+    <tr class="header">
+        <td>ID</td>
+        <td>Раздел</td>
+        <td>Название</td>
+        <td>Цена</td>
+        <td>Информация</td>
+        <td>Дата добавления</td>
+        <td>Функции</td>
+    </tr>
+    <?php foreach ($this->table_data as $tableData) { ?>
+        <tr>
+        <td><?=$tableData['id']?></td>
+        <td><?=$tableData['section']?></td>
+        <td>
+            <a href="<?=$tableData['link']?>"><?=$tableData['title']?></a>
+            <br>
+            <img class="img" src="<?=$tableData['img']?>" alt="<?=$tableData['title']?>">
+        </td>
+        <td><?=$tableData['price']?> рублей</td>
+        <td>
+            <table class="product_info">
+                <tr>
+                    <td><b>Год:</b></td>
+                    <td><?=$tableData['year']?></td>
+                </tr>
+                <tr>
+                    <td><b>Страна:</b></td>
+                    <td><?=$tableData['country']?></td>
+                </tr>
+                <tr>
+                    <td><b>Режиссер:</b></td>
+                    <td><?=$tableData['director']?></td>
+                </tr>
+                <tr>
+                    <td><b>Продолжительность:</b></td>
+                    <td><?=$tableData['play']?></td>
+                </tr>
+            </table>
+        </td>
+        <td><?=$tableData['date']?></td>
+        <td>
+            <a href="<?=$tableData['link_admin_edit']?>">Редактировать</a><br>
+            <a href="<?=$tableData['link_admin_delete']?>">Удалить</a>
+        </td>
+        </tr>
+    <?php } ?>
+</table>
+</div>

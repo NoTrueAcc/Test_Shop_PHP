@@ -109,7 +109,7 @@ abstract class globalDataBaseAbstractClass
      */
     protected function selectOrderOrLimit($order, $desc, $limit = false, $offset = false)
     {
-        $order = $order ? " ORDER BY `$order`" : '';
+        $order = $order ? " ORDER BY `$order`" : ' ORDER BY `id`';
         $desc = $desc ? " DESC" : '';
         $offset = $this->checker->isIntNumber($offset) ? " $offset ," : '';
         $limit = $this->checker->checkNumberIntMoreOrZero($limit, true) ? " LIMIT $offset $limit" : '';
@@ -186,6 +186,40 @@ abstract class globalDataBaseAbstractClass
         return $this->dataBaseConnect->sendQuery($query, array_values($data));
     }
 
+    public function updateData($id, $data)
+    {
+       $newData = array();
+
+       if(!$this->check($data))
+       {
+           return false;
+       }
+
+       $query = 'UPDATE `' . $this->tableName . '` SET ';
+
+       foreach ($data as $field => $value)
+       {
+           $query .= "`$field` = " . $this->config->symQuery . ',';
+       }
+
+       $query = substr($query, 0, -1);
+       $query .= ' WHERE `id` = ' . $this->config->symQuery;
+       $data['id'] = $id;
+
+       return $this->dataBaseConnect->sendQuery($query, array_values($data));
+    }
+
+    public function deleteData($id)
+    {
+        $query = 'DELETE FROM `' . $this->tableName . '` WHERE `id` = ' . $this->config->symQuery;
+
+        return $this->dataBaseConnect->sendQuery($query, array($id));
+    }
+
+    public function getTableName()
+    {
+        return $this->tableName;
+    }
     /**
      * Проверка данных на корректность. Для каждого класса своя.
      *

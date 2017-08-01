@@ -21,7 +21,8 @@ class configClass
      * Адрес сайта и имя сайта
      */
     public $siteName = "alexTest.local";
-    public $address = "http://alextest.local/admin/";
+    public $address = "http://alextest.local/admin";
+    public $siteAddress = "http://alextest.local/";
 
     /**
      * Конфиги подключения к БД
@@ -53,7 +54,7 @@ class configClass
     public $messagesDir = "/admin/library/messages/";
     public $templateDir = "/admin/library/template/";
     public $templateContentClassesDir = "/admin/library/template/templateContentClasses/";
-    public $productImagesDir = "/admin/images/products/";
+    public $productImagesDir = "/images/products/";
     public $templatesPhtmlDir = "/admin/templates/";
 
     /**
@@ -67,11 +68,14 @@ class configClass
     public $emailMaxLength = 50;
     public $textMinLength = 3;
     public $textMaxLength = 65535;
-
+    public $titleMinLength = 3;
+    public $titleMaxLength = 64;
     /**
      * Для админки
      */
     public $secretWord = 'asdadasdDASdaa';
     public $adminLogin = 'admin';
     public $adminPassHash = '0d9f59fed39dc98e176d3292d995df49';
+
+    public $maxImageSize = 4194304;
 }

@@ -17,6 +17,15 @@ switch ($func) {
         $manage->adminLogout();
         break;
     default : break;
+    case 'add_product' :
+        $manage->adminAddProduct();
+        break;
+    case 'edit_product' :
+        $manage->adminEditProduct();
+        break;
+    case 'delete_product' :
+        $manage->adminDeleteProduct();
+        break;
 }
 
     if(!isset($link))

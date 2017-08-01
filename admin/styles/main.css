@@ -28,6 +28,7 @@ div.admin_page table.admin_stats_table tr:first-child td {
 #system_message {
     color: #c00;
     text-align: center;
+    margin-bottom: 0;
 }
 
 #admin_auth_form form table{
@@ -37,4 +38,74 @@ div.admin_page table.admin_stats_table tr:first-child td {
 #admin_auth_form form table input[type='submit']{
     float: right;
     width: 80px;
+}
+
+/* Pagination */
+
+#paginator {
+    margin-top: 20px;
+}
+
+#paginator table {
+    margin: 0 auto;
+    font-size: 130%;
+}
+
+#paginator table td a{
+    padding: 0 2px;
+}
+
+/* Products_admin */
+
+#admin_products_info table{
+    border-collapse: collapse;
+    margin: 0 auto;
+    width: 100%;
+    border: 2px solid black;
+}
+
+#admin_products_info table td {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 110%;
+}
+
+#admin_products_info table td img.img {
+    max-width: 220px;
+    max-height: 125px;
+    padding: 5px;
+}
+
+#admin_products_info table tr:first-child {
+    font-weight: bold;
+    font-size: 120%;
+}
+
+#admin_products_info h3 {
+    font-size: 200%;
+    margin-bottom: 5px;
+}
+
+#admin_products_info p.link_add {
+    display: inline-block;
+    float:right;
+    font-size: 85%;
+    margin-bottom: 2px;
+}
+
+#admin_products_info table.product_info {
+    border: none;
+}
+
+#admin_products_info table.product_info td {
+    border: none;
+    border-bottom: 1px solid darkgray;
+    text-align: left;
+    padding-left: 5px;
+    font-size: 90%;
+    width: 140px;
+}
+
+#admin_products_form table {
+    margin: 0 auto;
 }

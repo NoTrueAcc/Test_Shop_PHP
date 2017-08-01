@@ -1,0 +1,13 @@
+<?php if(count($this->paginator) > 1) { ?>
+    <div id="paginator">
+        <table>
+            <tr>
+                <?php foreach($this->paginator as $page => $link) { ?>
+                <td>
+                    <a href="<?=$link?>"><?=$page?></a>
+                <?php } ?>
+                </td>
+            </tr>
+        </table>
+    </div>
+<?php } ?>
