@@ -148,6 +148,22 @@ class productClass extends globalDataBaseAbstractClass
         return $this->transformData(parent::getSearchDataList($searchText, $searchFields, $order, $desc));
     }
 
+    public function getAllTitlesAndIds()
+    {
+        $query = "SELECT `id`, `title` FROM " . $this->tableName;
+        $result = $this->dataBaseConnect->selectData($query);
+        $resultTitleAndIds = array();
+
+        for($i = 0; $i < count($result); $i++)
+        {
+            $resultTitleAndIds[] = array($result[$i]['id'] => $result[$i]['title']);
+        }
+
+        return $resultTitleAndIds;
+
+
+    }
+
     public function getDate($id)
     {
         return $this->selectFieldOnId('date', $id);
@@ -168,7 +184,7 @@ class productClass extends globalDataBaseAbstractClass
         $queryIds = array();
         $queryIdsData = array();
 
-        foreach($ids as $key => $value)
+        foreach($ids as $value)
         {
             $queryIds[] = $this->config->symQuery;
             $queryIdsData[] =  $value;
@@ -177,7 +193,7 @@ class productClass extends globalDataBaseAbstractClass
         $queryIds = implode(',', $queryIds);
         $query = "SELECT * FROM `" . $this->tableName . "` WHERE `id` IN ($queryIds)";
 
-        return $this->transformData($this->dataBaseConnect->selectData($query, $queryIdsData));
+        return $this->dataBaseConnect->selectData($query, $queryIdsData);
     }
 
     public function getCartPriceOnIds($cartProductIds)
@@ -207,6 +223,7 @@ class productClass extends globalDataBaseAbstractClass
 
         for($i = 0; $i < count($idsDataList); $i++)
         {
+            $titleDataOnIds[$i]['id'] = $idsDataList[$i]['id'];
             $titleDataOnIds[$i]['title'] = $idsDataList[$i]['title'];
             $titleDataOnIds[$i]['count'] = $this->__getCountValueInArray($idsDataList[$i]['id'], $idsArray);
         }
@@ -279,14 +296,6 @@ class productClass extends globalDataBaseAbstractClass
             . $orderLimit;
 
         return $this->transformData($this->dataBaseConnect->selectData($query));
-    }
-
-    public function getProductsCount()
-    {
-        $query = 'SELECT COUNT(`id`) as count FROM ' . $this->tableName;
-        $result = $this->dataBaseConnect->selectCell($query);
-
-        return $result['count'];
     }
 
     public function getCountProductsOnImageName($imgName)

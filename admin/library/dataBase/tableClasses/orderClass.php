@@ -6,11 +6,13 @@
  * Time: 18:29
  */
 
-namespace database\tableClasses;
+namespace admin\database\tableClasses;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/library/dataBase/globalDataBaseAbstractClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/globalDataBaseAbstractClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/library/dataBase/tableClasses/productClass.php';
 
-use database\globalDataBaseAbstractClass;
+use admin\database\globalDataBaseAbstractClass;
+use admin\database\tableClasses\productClass;
 
 /**
  * Класс для работы с таблицей Orders
@@ -20,9 +22,27 @@ use database\globalDataBaseAbstractClass;
  */
 class orderClass extends globalDataBaseAbstractClass
 {
+    private $__product;
+
     public function __construct()
     {
         parent::__construct('orders');
+        $this->__product = new productClass();
+    }
+
+    public function getOrderDataOnId($id)
+    {
+        if(!$this->checker->checkNumberIntMoreOrZero($id))
+        {
+            $this->url->redirectNotFound();
+        }
+
+        return $this->transformData($this->selectAllOnField('id', $id));
+    }
+
+    public function getTableData($limit, $offset)
+    {
+        return $this->transformData($this->selectAll('id', true, $limit, $offset));
     }
 
     public function checkData($data)
@@ -41,5 +61,39 @@ class orderClass extends globalDataBaseAbstractClass
         if(!$this->checker->checkTimeStamp($data['date_pay'])) return "UNKNOWN_ERROR";
 
         return true;
+    }
+
+    public function getProductIds($id)
+    {
+        return $this->selectFieldOnId('product_ids', $id);
+    }
+
+    private function __addProductsDataToOrderDataElement($orderDataElement)
+    {
+        $productsDataList = $this->__product->getTitleAndCountOnIds($orderDataElement['product_ids']);
+
+        if(count($productsDataList))
+        {
+            for ($i = 0; $i < count($productsDataList); $i++)
+            {
+                $orderDataElement['products'][$productsDataList[$i]['id']] = array($productsDataList[$i]['title'] => $productsDataList[$i]['count']);
+            }
+        }
+        elseif(isset($productsDataList['title']))
+        {
+            $orderDataElement['products'][$productsDataList['id']] = array($productsDataList['title'] => $productsDataList['count']);
+        }
+
+        return $orderDataElement;
+    }
+
+    protected function transformElement($orderDataElement)
+    {
+        $orderDataElement = $this->__addProductsDataToOrderDataElement($orderDataElement);
+        $orderDataElement['link_admin_edit'] = $this->url->getLinkAdminEditOrder($orderDataElement['id']);
+        $orderDataElement['link_admin_delete'] = $this->url->getLinkAdminDeleteOrder ($orderDataElement['id']);
+        $orderDataElement['date_order'] = $this->format->getFormatDate($orderDataElement['date_order']);
+
+        return $orderDataElement;
     }
 }

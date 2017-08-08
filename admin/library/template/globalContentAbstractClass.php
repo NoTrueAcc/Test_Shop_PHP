@@ -17,6 +17,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/template/templateClass.
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/sectionClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/productClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/discountClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/orderClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/messages/messageClass.php";
 
 use admin\assets\paginationClass;
@@ -24,6 +25,7 @@ use admin\config\configClass;
 use admin\database\tableClasses\discountClass;
 use admin\database\tableClasses\sectionClass;
 use admin\database\tableClasses\productClass;
+use admin\database\tableClasses\orderClass;
 use admin\helper\authClass;
 use admin\helper\urlClass;
 use admin\helper\formatClass;
@@ -39,6 +41,7 @@ abstract class globalContentAbstractClass
     protected $section;
     protected $product;
     protected $discount;
+    protected $order;
     protected $message;
     protected $auth;
     protected $paginator;
@@ -51,6 +54,7 @@ abstract class globalContentAbstractClass
         $this->section = new sectionClass();
         $this->product = new productClass();
         $this->discount = new discountClass();
+        $this->order = new orderClass();
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->template = new templateClass($_SERVER['DOCUMENT_ROOT'] . $this->config->templatesPhtmlDir);
         $this->message = new messageClass();
@@ -75,6 +79,11 @@ abstract class globalContentAbstractClass
         $this->template->setDataForReplace('message', $this->getMessage());
 
         $this->template->display("main");
+    }
+
+    public function getOffset()
+    {
+        return (!isset($this->data['page']) || ($this->data['page'] == 1)) ? 0 : ($this->data['page'] - 1) * 10;
     }
 
     abstract protected function getContent();

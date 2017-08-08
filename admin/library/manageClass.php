@@ -13,6 +13,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/messages/messageClass.p
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/urlClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/checkerClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/productClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/sectionClass.php";
 
 use admin\config\configClass;
 use admin\helper\formatClass;
@@ -29,6 +30,7 @@ class manageClass
     private $systemMessage;
     private $__checker;
     private $__product;
+    private $__section;
     private $__url;
 
     public function __construct()
@@ -39,6 +41,7 @@ class manageClass
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->__checker = new checkerClass();
         $this->__product = new \admin\database\tableClasses\productClass();
+        $this->__section = new \admin\database\tableClasses\sectionClass();
         $this->__url = new urlClass();
     }
 
@@ -141,10 +144,56 @@ class manageClass
         {
             $this->systemMessage->getMessage('SUCCESS_DELETE_PRODUCT');
         }
+        else
+        {
+            $this->systemMessage->getUnknownError();
+        }
 
         if($this->__product->getCountProductsOnImageName($imgName) < 1)
         {
             unlink($_SERVER['DOCUMENT_ROOT'] . $this->config->productImagesDir . $imgName);
+        }
+    }
+
+    public function adminAddSection()
+    {
+        $this->__setFormSessionData($this->data);
+        $tempSectionData = $this->dataSection();
+
+        if($this->__section->insertData($tempSectionData))
+        {
+            $this->__unsetFormSessionData($this->data);
+            $this->systemMessage->getMessage('SUCCESS_ADD_SECTION');
+
+            return $this->__url->redirectAdminSections();
+        }
+
+        return false;
+    }
+
+    public function adminEditSection()
+    {
+        $tempSectionData = $this->dataSection();
+
+        if($this->__section->updateData($this->data['id'], $tempSectionData))
+        {
+            $this->systemMessage->getMessage('SUCCESS_EDIT_SECTION');
+
+            return $this->__url->redirectAdminSections();
+        }
+
+        return false;
+    }
+
+    public function adminDeleteSection()
+    {
+        if($this->__section->deleteData($this->data['id']))
+        {
+            $this->systemMessage->getMessage('SUCCESS_DELETE_SECTION');
+        }
+        else
+        {
+            $this->systemMessage->getUnknownError();
         }
     }
 
@@ -181,6 +230,13 @@ class manageClass
         $tempProductData['description'] = isset($this->data['description']) ? $this->data['description'] : '';
 
         return $tempProductData;
+    }
+
+    public function dataSection()
+    {
+        $tempSectionData['title'] = isset($this->data['section_title']) ? $this->data['section_title'] : '';
+
+        return $tempSectionData;
     }
 
     private function __setFormSessionData($formData)

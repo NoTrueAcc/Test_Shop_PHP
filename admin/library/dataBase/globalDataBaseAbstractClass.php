@@ -55,7 +55,7 @@ abstract class globalDataBaseAbstractClass
      * @param bool Смещение
      * @return Двумерный_массив_с_данными_запроса
      */
-    protected function selectAll($order = false, $desc = false, $limit = false, $offset = false)
+    public function selectAll($order = false, $desc = false, $limit = false, $offset = false)
     {
         $orderOrLimit = $this->selectOrderOrLimit($order, $desc, $limit, $offset);
 
@@ -220,6 +220,15 @@ abstract class globalDataBaseAbstractClass
     {
         return $this->tableName;
     }
+
+    public function getRowsCount()
+    {
+        $query = 'SELECT COUNT(`id`) as count FROM ' . $this->tableName;
+        $result = $this->dataBaseConnect->selectCell($query);
+
+        return $result['count'];
+    }
+
     /**
      * Проверка данных на корректность. Для каждого класса своя.
      *

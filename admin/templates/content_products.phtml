@@ -1,4 +1,4 @@
-<div id="admin_products_info">
+<div id="admin_table_info">
 <h3>Товары</h3>
 <?php include 'message.phtml'; ?>
 <p class="link_add">
@@ -47,7 +47,7 @@
         <td><?=$tableData['date']?></td>
         <td>
             <a href="<?=$tableData['link_admin_edit']?>">Редактировать</a><br>
-            <a href="<?=$tableData['link_admin_delete']?>">Удалить</a>
+            <a href="<?=$tableData['link_admin_delete']?>" onclick="return confirm('Вы уверены, что хотите удалить элемент?')"> Удалить</a>
         </td>
         </tr>
     <?php } ?>

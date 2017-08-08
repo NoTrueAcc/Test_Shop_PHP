@@ -57,47 +57,47 @@ div.admin_page table.admin_stats_table tr:first-child td {
 
 /* Products_admin */
 
-#admin_products_info table{
+#admin_table_info table{
     border-collapse: collapse;
     margin: 0 auto;
     width: 100%;
     border: 2px solid black;
 }
 
-#admin_products_info table td {
+#admin_table_info table td {
     border: 1px solid black;
     text-align: center;
     font-size: 110%;
 }
 
-#admin_products_info table td img.img {
+#admin_table_info table td img.img {
     max-width: 220px;
     max-height: 125px;
     padding: 5px;
 }
 
-#admin_products_info table tr:first-child {
+#admin_table_info table tr:first-child {
     font-weight: bold;
     font-size: 120%;
 }
 
-#admin_products_info h3 {
+#admin_table_info h3 {
     font-size: 200%;
     margin-bottom: 5px;
 }
 
-#admin_products_info p.link_add {
+#admin_table_info p.link_add {
     display: inline-block;
     float:right;
     font-size: 85%;
     margin-bottom: 2px;
 }
 
-#admin_products_info table.product_info {
+#admin_table_info table.product_info {
     border: none;
 }
 
-#admin_products_info table.product_info td {
+#admin_table_info table.product_info td {
     border: none;
     border-bottom: 1px solid darkgray;
     text-align: left;
@@ -106,6 +106,41 @@ div.admin_page table.admin_stats_table tr:first-child td {
     width: 140px;
 }
 
-#admin_products_form table {
+#admin_table_info table {
     margin: 0 auto;
+}
+
+#admin_table_form table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+#admin_table_form table td:last-child {
+    text-align: center;
+}
+
+#admin_table_form table td input, #admin_table_form table td select, #admin_table_form table td textarea {
+    width: 100%;
+    border: none;
+    padding: 3px;
+}
+
+#admin_table_form table td input[type='submit']:hover {
+    background-color: #7cf115;
+}
+
+#admin_table_form table td {
+    border: 1px solid black;
+}
+
+#admin_table_info table td ol {
+    padding-left: 20px;
+}
+
+#admin_table_info table.admin_orders {
+    font-size: 90%;
+}
+
+#admin_table_info table td p.red_message {
+    color: red;
 }

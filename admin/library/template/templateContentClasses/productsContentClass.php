@@ -26,11 +26,11 @@ class productsContentClass extends pageFormAbstractClass
         $formData['func_edit'] = 'edit_product';
         $formData['title_add'] = 'Добавление товара';
         $formData['title_edit'] = 'Редактирование товара';
-        $formData['product_data'] = isset($this->data['id']) ? $this->product->getAllProductDataOnId($this->data['id'], $this->section->getTableName()) : '';
+        $formData['get_data'] = isset($this->data['id']) ? $this->product->getAllProductDataOnId($this->data['id'], $this->section->getTableName()) : '';
         $formData['form_template'] = 'products_form';
         $formData['template'] = 'products';
-        $formData['table_data'] = $this->product->getTableData($this->section->getTableName(), 10, false);
-        $formData['count_rows'] = $this->product->getProductsCount();
+        $formData['table_data'] = $this->product->getTableData($this->section->getTableName(), 10, $this->getOffset());
+        $formData['count_rows'] = $this->product->getRowsCount();
 
         return $formData;
     }

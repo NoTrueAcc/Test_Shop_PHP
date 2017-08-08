@@ -137,6 +137,21 @@ class urlClass extends \helper\urlClass
         parent::redirect($this->returnProductsAdminUrl());
     }
 
+    public function redirectAdminSections()
+    {
+        parent::redirect($this->returnSectionsAdminUrl());
+    }
+
+    public function redirectAdminOrders()
+    {
+        parent::redirect($this->returnOrdersAdminUrl());
+    }
+
+    public function redirectAdminDiscounts()
+    {
+        parent::redirect($this->returnDiscountsAdminUrl());
+    }
+
     public function getFuncLink($funcData)
     {
         $url = $this->getThisUrl();
@@ -162,7 +177,7 @@ class urlClass extends \helper\urlClass
 
     public function getLinkAdminDeleteSection($id)
     {
-        return parent::returnURL("functions.php?func=delete_section&id=$id");
+        return parent::returnURL("/functions.php?func=delete_section&id=$id");
     }
 
     public function getLinkAdminEditOrder($id)
@@ -172,7 +187,7 @@ class urlClass extends \helper\urlClass
 
     public function getLinkAdminDeleteOrder($id)
     {
-        return parent::returnURL("functions.php?func=delete_order&id=$id");
+        return parent::returnURL("/functions.php?func=delete_order&id=$id");
     }
 
     public function getLinkAdminEditDiscount($id)
@@ -182,7 +197,7 @@ class urlClass extends \helper\urlClass
 
     public function getLinkAdminDeleteDiscount($id)
     {
-        return parent::returnURL("functions.php?func=delete_discount&id=$id");
+        return parent::returnURL("/functions.php?func=delete_discount&id=$id");
     }
 
     public function productDataElementLink($productId)

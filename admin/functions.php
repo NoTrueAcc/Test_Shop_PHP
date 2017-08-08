@@ -26,6 +26,15 @@ switch ($func) {
     case 'delete_product' :
         $manage->adminDeleteProduct();
         break;
+    case 'add_section' :
+        $manage->adminAddSection();
+        break;
+    case 'edit_section' :
+        $manage->adminEditSection();
+        break;
+    case 'delete_section' :
+        $manage->adminDeleteSection();
+        break;
 }
 
     if(!isset($link))

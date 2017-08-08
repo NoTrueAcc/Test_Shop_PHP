@@ -35,11 +35,10 @@ abstract class pageFormAbstractClass extends globalContentAbstractClass
         {
             $form = true;
 
-            if(!($editedData = $formData['product_data'][0]))
+            if(!($editedData = $formData['get_data'][0]))
             {
              $this->url->redirectAdminNotFound();
             }
-
 
             $fieldsDataList = array();
             $formData['id'] = $this->data['id'];
@@ -47,6 +46,12 @@ abstract class pageFormAbstractClass extends globalContentAbstractClass
             for($i = 0; $i < count($formData['fields']); $i++)
             {
                 $fieldsDataList[$formData['fields'][$i]] = $editedData[$formData['fields'][$i]];
+            }
+
+            if(isset($editedData['products']))
+            {
+                $this->template->setDataForReplace('edited_products', $editedData['products']);
+                $this->template->setDataForReplace('all_products', $formData['all_products']);
             }
 
             $this->template->setDataForReplace('func', $formData['func_edit']);
@@ -68,7 +73,6 @@ abstract class pageFormAbstractClass extends globalContentAbstractClass
             $tableData = $formData['table_data'];
 
             $this->template->setDataForReplace('link_add', $this->url->getFuncLink('add'));
-            $this->template->setDataForReplace('', $this->url->getFuncLink('add'));
             $this->template->setDataForReplace('table_data', $tableData);
             $this->template->setDataForReplace('paginator', $this->paginator->getPagesData($formData['count_rows'], 10));
 

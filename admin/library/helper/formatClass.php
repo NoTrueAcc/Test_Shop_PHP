@@ -35,6 +35,11 @@ class formatClass
         return time();
     }
 
+    public function getFormatDate($unixTime)
+    {
+        return date('Y-m-d', $unixTime);
+    }
+
     /**
      * Проверяет данные на спецсимволы и преобразует их в html сущности
      *

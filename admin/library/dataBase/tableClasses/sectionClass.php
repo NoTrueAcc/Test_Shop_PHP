@@ -37,7 +37,7 @@ class sectionClass extends globalDataBaseAbstractClass
             $this->url->redirectNotFound();
         }
 
-        return $this->selectAllOnField('id', $id);
+        return $this->transformData($this->selectAllOnField('id', $id));
     }
 
     public function getSectionTitleOnId($id)
@@ -45,10 +45,25 @@ class sectionClass extends globalDataBaseAbstractClass
         return $this->selectFieldOnId('title', $id);
     }
 
+    public function getTableData($limit, $offset)
+    {
+        return $this->transformData($this->selectAll('id', true, $limit, $offset));
+    }
+
     protected function transformElement($sectionDataElement)
     {
         $sectionDataElement['link'] = $this->url->sectionDataElementLink($sectionDataElement['id']);
+        $sectionDataElement['link_admin_edit'] = $this->url->getLinkAdminEditSection($sectionDataElement['id']);
+        $sectionDataElement['link_admin_delete'] = $this->url->getLinkAdminDeleteSection($sectionDataElement['id']);
+        $sectionDataElement['section_title'] = $sectionDataElement['title'];
 
         return $sectionDataElement;
+    }
+
+    public function checkData($data)
+    {
+        if(!$this->checker->checkTitle($data['title'], false)) return 'ERROR_TITLE';
+
+        return true;
     }
 }

@@ -1,0 +1,109 @@
+<div id="admin_table_form">
+    <h3><?=$this->form_title?></h3>
+    <?php include 'message.phtml'; ?>
+    <div class="form">
+        <form name="product" action="<?=$this->action?>" method="post">
+            <h3>Заказ</h3>
+            <table id="admin_orders">
+                <?php if($this->edited_products) : ?>
+                        <?php foreach($this->edited_products as $edited_product_id => $product_data) { ?>
+                            <?php foreach ($product_data as $edited_title => $edited_count) { ?>
+                                <select name="products_<?=$edited_product_id?>">
+                                    <?php foreach ($this->all_products as $product_id => $product_title) { ?>
+                                        <tr>
+                                            <td>
+                                                <option value="<?=$product_id?>" <?php if($edited_product_id == $product_id) { ?> selected="selected" <?php } ?>><?=$product_title?></option>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </select>
+                            <?php } ?>
+                        <?php } ?>
+                <?php else : ?>
+                    <p class="red_message">Товаров не найдено! <br> Возможно они были удалены.</p>
+                <?php endif; ?>
+            </table>
+            <p>
+                <a href="#">Добавить позицию</a>
+            </p>
+            <table>
+                <tr>
+                    <td>Способ доставки:</td>
+                    <td>
+                        <select name="delivery">
+                                <option value="0"<?php if($this->delivery == 0){ ?> selected="selected"<?php } ?>>Доставка</option>
+                                <option value="1"<?php if($this->delivery == 1){ ?> selected="selected"<?php } ?>>Самовывоз</option>
+                         </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Цена:</td>
+                    <td>
+                        <input type="text" name="price" value="<?=$this->price?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td>ФИО:</td>
+                    <td>
+                        <input type="text" name="name" value="<?=$this->name?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Телефон:</td>
+                    <td>
+                        <input type="text" name="phone" value="<?=$this->phone?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td>
+                        <input type="text" name="email" value="<?=$this->email?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Адрес:</td>
+                    <td>
+                        <textarea name="address" cols="30" rows="10"><?=$this->address?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Примечание:</td>
+                    <td>
+                        <textarea name="notice" cols="30" rows="10"><?=$this->notice?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Описание:</td>
+                    <td>
+                        <textarea name="description" cols="30" rows="10"><?=$this->description?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Отправлено:</td>
+                    <td>
+                        <select name="is_send">
+                            <option value="0"<?php if($this->date_send == 0){ ?> selected="selected"<?php } ?>>Не отправлено</option>
+                            <option value="1"<?php if($this->date_send != 0){ ?> selected="selected"<?php } ?>>Отправлено</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Оплачено:</td>
+                    <td>
+                        <select name="is_pay">
+                            <option value="0"<?php if($this->date_pay == 0){ ?> selected="selected"<?php } ?>>Не оплачено</option>
+                            <option value="1"<?php if($this->date_pay != 0){ ?> selected="selected"<?php } ?>>Оплачено</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="hidden" name="id" value="<?=$this->id?>">
+                        <input type="hidden" name="func" value="<?=$this->func?>">
+                        <input type="submit" value="Отправить">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
