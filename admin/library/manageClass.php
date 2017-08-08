@@ -14,6 +14,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/urlClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/checkerClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/productClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/sectionClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/orderClass.php";
 
 use admin\config\configClass;
 use admin\helper\formatClass;
@@ -31,6 +32,7 @@ class manageClass
     private $__checker;
     private $__product;
     private $__section;
+    private $__order;
     private $__url;
 
     public function __construct()
@@ -42,6 +44,7 @@ class manageClass
         $this->__checker = new checkerClass();
         $this->__product = new \admin\database\tableClasses\productClass();
         $this->__section = new \admin\database\tableClasses\sectionClass();
+        $this->__order = new \admin\database\tableClasses\orderClass();
         $this->__url = new urlClass();
     }
 
@@ -126,7 +129,7 @@ class manageClass
             $tempProductData['img'] = $img;
         }
 
-        if($this->__product->updateData($this->data['id'], $tempProductData))
+        if($this->__product->updateAllData($this->data['id'], $tempProductData))
         {
             $this->systemMessage->getMessage('SUCCESS_EDIT_PRODUCT');
 
@@ -175,7 +178,7 @@ class manageClass
     {
         $tempSectionData = $this->dataSection();
 
-        if($this->__section->updateData($this->data['id'], $tempSectionData))
+        if($this->__section->updateAllData($this->data['id'], $tempSectionData))
         {
             $this->systemMessage->getMessage('SUCCESS_EDIT_SECTION');
 
@@ -196,6 +199,18 @@ class manageClass
             $this->systemMessage->getUnknownError();
         }
     }
+
+    public function adminDeleteOrderPosition()
+	{
+		if($this->__order->deletePosition($this->data['order_id'], $this->data['position_id']))
+		{
+			$this->systemMessage->getMessage('SUCCESS_DELETE_POSITION');
+		}
+		else
+		{
+			$this->systemMessage->getUnknownError();
+		}
+	}
 
     private function __loadImage()
     {

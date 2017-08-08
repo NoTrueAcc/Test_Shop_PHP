@@ -194,9 +194,9 @@ class productClass extends globalDataBaseAbstractClass
         return $this->dataBaseConnect->selectData($query, $queryIdsData);
     }
 
-    public function getCartPriceOnIds($cartProductIds)
+    public function getPriceOnIds($productIds)
     {
-        $productDataList = $this->getAllOnIds($cartProductIds);
+        $productDataList = $this->getAllOnIds($productIds);
         $productPriceOnIds = array();
         $fullPriceOnIds = 0;
 
@@ -205,9 +205,9 @@ class productClass extends globalDataBaseAbstractClass
             $productPriceOnIds[$productDataList[$i]['id']] = $productDataList[$i]['price'];
         }
 
-        for($i = 0; $i < count($cartProductIds); $i++)
+        foreach ($productIds as $num => $id)
         {
-            $fullPriceOnIds += $productPriceOnIds[$cartProductIds[$i]];
+            $fullPriceOnIds += $productPriceOnIds[$productIds[$num]];
         }
 
         return $fullPriceOnIds;

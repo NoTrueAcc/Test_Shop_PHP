@@ -127,6 +127,7 @@ class manageClass
         $tempData['date_order'] = $this->format->getTimeStamp();
         $tempData['date_send'] = 0;
         $tempData['date_pay'] = 0;
+        $tempData['discount'] = isset($_SESSION['discount']) ? $this->discount->getDiscountOnCode($_SESSION['discount']) : 0;
 
         $success = $this->order->insertData($tempData);
 

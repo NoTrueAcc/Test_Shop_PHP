@@ -63,10 +63,53 @@ class orderClass extends globalDataBaseAbstractClass
         return true;
     }
 
+	public function checkFieldsData($data)
+	{
+		if(isset($data['delivery']) && !$this->checker->oneOrZero($data['delivery'])) return "ERROR_DELIVERY";
+		if(isset($data['product_ids']) && !$this->checker->checkIds($data['product_ids'])) return "UNKNOWN_ERROR";
+		if(isset($data['price']) && !$this->checker->checkPrice($data['price'])) return "UNKNOWN_ERROR";
+		if(isset($data['name']) && !$this->checker->checkName($data['name'])) return "ERROR_NAME";
+		if(isset($data['phone']) && !$this->checker->checkPhone($data['phone'])) return "ERROR_PHONE";
+		if(isset($data['email']) && !$this->checker->checkEmail($data['email'])) return "ERROR_EMAIL";
+		$empty = (isset($data['delivery']) && $data['delivery'] == 1) ? true : false;
+		if(isset($data['address']) && !$this->checker->checkText($data['address'], $empty)) return "ERROR_ADDRESS";
+		if(isset($data['notice']) && !$this->checker->checkText($data['notice'], true)) return "ERROR_NOTICE";
+		if(isset($data['date_order']) && !$this->checker->checkTimeStamp($data['date_order'])) return "UNKNOWN_ERROR";
+		if(isset($data['date_send']) && !$this->checker->checkTimeStamp($data['date_send'])) return "UNKNOWN_ERROR";
+		if(isset($data['date_pay']) && !$this->checker->checkTimeStamp($data['date_pay'])) return "UNKNOWN_ERROR";
+
+		return true;
+	}
+
     public function getProductIds($id)
     {
         return $this->selectFieldOnId('product_ids', $id);
     }
+
+	/**
+	 *
+	 *
+	 * @param $orderId
+	 * @param $positionId
+	 * @return bool
+	 */
+    public function deletePosition($orderId, $positionId)
+	{
+		$orderData = $this->getOrderDataOnId($orderId);
+		$orderPositions = explode(',', $orderData[0]['product_ids']);
+		$resultPositions = array_diff($orderPositions, array($positionId));
+		$orderPrice = $this->__getPriceWithDiscount($resultPositions, $orderData[0]['discount']);
+		$resultPositions = implode(',', $resultPositions);
+
+		return $this->updateFieldsOnId($orderId, array('product_ids' => $resultPositions, 'price' => $orderPrice));
+	}
+
+	private function __getPriceWithDiscount($resultPositions, $discount)
+	{
+		$price = $this->__product->getPriceOnIds($resultPositions);
+
+		return $price * (1 - $discount);
+	}
 
     private function __addProductsDataToOrderDataElement($orderDataElement)
     {

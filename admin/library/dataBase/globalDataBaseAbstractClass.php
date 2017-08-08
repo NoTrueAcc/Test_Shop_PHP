@@ -186,10 +186,8 @@ abstract class globalDataBaseAbstractClass
         return $this->dataBaseConnect->sendQuery($query, array_values($data));
     }
 
-    public function updateData($id, $data)
+    public function updateAllData($id, $data)
     {
-       $newData = array();
-
        if(!$this->check($data))
        {
            return false;
@@ -208,6 +206,27 @@ abstract class globalDataBaseAbstractClass
 
        return $this->dataBaseConnect->sendQuery($query, array_values($data));
     }
+
+    public function updateFieldsOnId($id, $newData)
+	{
+		if(!$this->checkFields($newData))
+		{
+			return false;
+		}
+
+		$query = 'UPDATE `' . $this->tableName . '` SET ';
+
+		foreach ($newData as $field => $value)
+		{
+			$query .= "`$field` = " . $this->config->symQuery . ',';
+		}
+
+		$query = substr($query, 0, -1);
+		$query .= ' WHERE `id` = ' . $this->config->symQuery;
+		$newData['id'] = $id;
+
+		return $this->dataBaseConnect->sendQuery($query, array_values($newData));
+	}
 
     public function deleteData($id)
     {
@@ -251,6 +270,28 @@ abstract class globalDataBaseAbstractClass
         }
     }
 
+	/**
+	 * Проверка данных на корректность. Для каждого класса своя.
+	 *
+	 * @param $data
+	 * @return bool
+	 */
+	private function checkFields($data)
+	{
+		$result = $this->checkFieldsData($data);
+
+		if($result === true)
+		{
+			return true;
+		}
+		else
+		{
+			$systemMessage = new systemMessageClass();
+
+			return $systemMessage->getMessage($result);
+		}
+	}
+
     /**
      * По умолчанию проверка возвращает false
      *
@@ -261,6 +302,17 @@ abstract class globalDataBaseAbstractClass
     {
         return false;
     }
+
+	/**
+	 * По умолчанию проверка возвращает false
+	 *
+	 * @param $data
+	 * @return bool
+	 */
+	protected function checkFieldData($data)
+	{
+		return false;
+	}
 
     /**
      * Преобразует поступающие данные и добавляет новые элементы массиву
