@@ -160,8 +160,6 @@ class productClass extends globalDataBaseAbstractClass
         }
 
         return $resultTitleAndIds;
-
-
     }
 
     public function getDate($id)

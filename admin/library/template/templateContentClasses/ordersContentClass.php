@@ -40,6 +40,8 @@ class ordersContentClass extends pageFormAbstractClass
         elseif (isset($this->data['func']) && ($this->data['func'] == 'edit'))
         {
             $formData['all_products'] = $this->product->getAllTitlesAndIds();
+			$this->template->setDataForReplace('admin_delete_position', $this->url->getLinkAdminDeleteOrderPosition($this->data['id']));
+			$this->template->setDataForReplace('admin_add_position', $this->url->getLinkAdminAddOrderPosition($this->data['id']));
         }
 
         return $formData;

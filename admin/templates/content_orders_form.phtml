@@ -6,25 +6,33 @@
             <h3>Заказ</h3>
             <table id="admin_orders">
                 <?php if($this->edited_products) : ?>
-                        <?php foreach($this->edited_products as $edited_product_id => $product_data) { ?>
-                            <?php foreach ($product_data as $edited_title => $edited_count) { ?>
-                                <select name="products_<?=$edited_product_id?>">
-                                    <?php foreach ($this->all_products as $product_id => $product_title) { ?>
-                                        <tr>
-                                            <td>
-                                                <option value="<?=$product_id?>" <?php if($edited_product_id == $product_id) { ?> selected="selected" <?php } ?>><?=$product_title?></option>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
-                                </select>
-                            <?php } ?>
+                    <?php foreach($this->edited_products as $edited_product_id => $product_data) { ?>
+                        <?php foreach ($product_data as $edited_title => $edited_count) { ?>
+                            <tr class="order_position">
+                                <td>
+                                    <select name="products_<?=$edited_product_id?>">
+                                        <?php for($i = 0; $i < count($this->all_products); $i++) { ?>
+                                            <?php foreach ($this->all_products[$i] as $product_id => $product_title) { ?>
+                                                <option name="product_id" value="<?=$product_id?>" <?php if($edited_product_id == $product_id) { ?> selected="selected" <?php } ?>><?=$product_title?></option>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" name="count_$edited_product_id" value="<?=$edited_count?>">
+                                </td>
+                                <td>
+                                    <a href="<?=$this->admin_delete_position . $edited_product_id?>">Удалить позицию</a>
+                                </td>
+                            </tr>
                         <?php } ?>
+                    <?php } ?>
                 <?php else : ?>
                     <p class="red_message">Товаров не найдено! <br> Возможно они были удалены.</p>
                 <?php endif; ?>
             </table>
             <p>
-                <a href="#">Добавить позицию</a>
+                <a href="<?=$this->admin_add_position?>">Добавить позицию</a>
             </p>
             <table>
                 <tr>

@@ -144,3 +144,16 @@ div.admin_page table.admin_stats_table tr:first-child td {
 #admin_table_info table td p.red_message {
     color: red;
 }
+
+#admin_orders tr.order_position td:nth-child(2) {
+    max-width: 50px;
+}
+
+#admin_orders tr.order_position td:nth-child(3):hover {
+    background-color: #7cf115;
+}
+
+#admin_orders tr.order_position td:nth-child(3) a {
+    font-size: 80%;
+    text-decoration: none;
+}
