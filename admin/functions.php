@@ -35,9 +35,6 @@ switch ($func) {
     case 'delete_section' :
         $manage->adminDeleteSection();
         break;
-	case 'delete_order_position' :
-        $manage->adminDeleteOrderPosition();
-        break;
 }
 
     if(!isset($link))

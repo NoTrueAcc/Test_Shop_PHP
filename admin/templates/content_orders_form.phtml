@@ -22,7 +22,7 @@
                                     <input type="number" min="0" max="100" name="count_<?=$j?>" value="<?=$edited_count?>">
                                 </td>
                                 <td>
-                                    <a href="<?=$this->admin_delete_position . $edited_product_id?>" onclick="return confirm('Вы уверены, что хотите удалить элемент?')">Удалить позицию</a>
+                                    <a href="#" onclick="return deletePosition(this.parentNode.parentNode)">Удалить позицию</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -32,7 +32,7 @@
                 <?php endif; ?>
             </table>
             <p>
-                <a href="<?=$this->admin_add_position?>">Добавить позицию</a>
+                <a href="#" onclick="return addPosition()">Добавить позицию</a>
             </p>
             <table>
                 <tr>

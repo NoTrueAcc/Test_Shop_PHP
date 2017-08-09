@@ -185,16 +185,6 @@ class urlClass extends \helper\urlClass
         return $this->returnAdminURL("orders&func=edit&id=$id");
     }
 
-    public function getLinkAdminDeleteOrderPosition($orderId, $positionId = '')
-    {
-        return parent::returnURL("/functions.php?func=delete_order_position&order_id=$orderId&position_id=$positionId");
-    }
-
-	public function getLinkAdminAddOrderPosition($orderId)
-	{
-		return parent::returnURL("/functions.php?func=add_order_position&order_id=$orderId");
-	}
-
     public function getLinkAdminDeleteOrder($id)
     {
         return parent::returnURL("/functions.php?func=delete_order&id=$id");

@@ -200,18 +200,6 @@ class manageClass
         }
     }
 
-    public function adminDeleteOrderPosition()
-	{
-		if($this->__order->deletePosition($this->data['order_id'], $this->data['position_id']))
-		{
-			$this->systemMessage->getMessage('SUCCESS_DELETE_POSITION');
-		}
-		else
-		{
-			$this->systemMessage->getMessage('ERROR_DELETE_POSITION');
-		}
-	}
-
     private function __loadImage()
     {
         $img = $_FILES['img'];
