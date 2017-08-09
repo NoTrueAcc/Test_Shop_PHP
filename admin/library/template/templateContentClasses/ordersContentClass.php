@@ -35,11 +35,11 @@ class ordersContentClass extends pageFormAbstractClass
 
         if (isset($this->data['func']) && ($this->data['func'] == 'add'))
         {
-			$formData['all_products'] = $this->product->getAllTitlesAndIds();
+			$formData['all_products'] = $this->product->getAllData(false);
         }
         elseif (isset($this->data['func']) && ($this->data['func'] == 'edit'))
         {
-            $formData['all_products'] = $this->product->getAllTitlesAndIds();
+            $formData['all_products'] = $this->product->getAllData(false);
         }
 
         return $formData;

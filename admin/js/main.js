@@ -2,6 +2,11 @@
  * Created by arozhkov on 09.08.17.
  */
 
+document.onclick = function(){
+	var form = document.getElementById('admin_table_form').getElementsByTagName('form')[0];
+	form.onclick = getPrice();
+}
+
 function deletePosition(elem)
 {
 	var orders = document.getElementById('admin_orders');
@@ -32,4 +37,24 @@ function addPosition()
 	newElemInput.setAttribute('name', 'count_' + lastNumber);
 
 	return false;
+}
+
+function getPrice()
+{
+	var orders = document.getElementById('admin_orders');
+	var tr = orders.getElementsByTagName('tr');
+	var price = 0;
+
+	for(var i = 0; i < tr.length; i++)
+	{
+		var options = tr[i].getElementsByTagName('select')[0].getElementsByTagName('option');
+
+		for(j = 0; j < options.length; j++)
+		{
+			if(options[j].hasAttribute('selected'))
+			{
+				price += Number(options[j].getAttribute('price') * tr[i].getElementsByTagName('input')[0].getAttribute('value'));
+			}
+		}
+	}
 }
