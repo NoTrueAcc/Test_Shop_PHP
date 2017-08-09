@@ -35,6 +35,7 @@ abstract class globalDataBaseAbstractClass
     protected $url;
     protected $checker;
     protected $tableName;
+    protected $_systemMessage;
 
     public function __construct($tableName)
     {
@@ -44,6 +45,7 @@ abstract class globalDataBaseAbstractClass
         $this->url = new urlClass();
         $this->checker = new checkerClass();
         $this->tableName = $this->config->dataBasePrefix . $tableName;
+        $this->_systemMessage = new systemMessageClass();
     }
 
     /**

@@ -97,6 +97,12 @@ class orderClass extends globalDataBaseAbstractClass
 	{
 		$orderData = $this->getOrderDataOnId($orderId);
 		$orderPositions = explode(',', $orderData[0]['product_ids']);
+
+		if(count($orderPositions) == 1)
+        {
+            return false;
+        }
+
 		$resultPositions = array_diff($orderPositions, array($positionId));
 		$orderPrice = $this->__getPriceWithDiscount($resultPositions, $orderData[0]['discount']);
 		$resultPositions = implode(',', $resultPositions);
