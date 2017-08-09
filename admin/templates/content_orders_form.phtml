@@ -28,7 +28,23 @@
                         <?php } ?>
                     <?php $j++; } ?>
                 <?php else : ?>
-                    <p class="red_message">Товаров не найдено! <br> Возможно они были удалены.</p>
+                    <tr class="order_position">
+                        <td>
+                            <select name="products_0">
+                                <?php for($i = 0; $i < count($this->all_products); $i++) { ?>
+                                    <?php foreach ($this->all_products[$i] as $product_id => $product_title) { ?>
+                                        <option name="product_id" value="<?=$product_id?>"><?=$product_title?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" name="count_0" value="1">
+                        </td>
+                        <td>
+                            <a href="#" onclick="return deletePosition(this.parentNode.parentNode)">Удалить позицию</a>
+                        </td>
+                    </tr>
                 <?php endif; ?>
             </table>
             <p>

@@ -28,6 +28,11 @@ abstract class pageFormAbstractClass extends globalContentAbstractClass
                 $fieldsDataList[$formData['fields'][$i]] = isset($_SESSION[$formData['fields'][$i]]) ? $_SESSION[$formData['fields'][$i]] : '';
             }
 
+            if(isset($formData['all_products']))
+			{
+				$this->template->setDataForReplace('all_products', $formData['all_products']);
+			}
+
             $this->template->setDataForReplace('func', $formData['func_add']);
             $this->template->setDataForReplace('form_title', $formData['title_add']);
         }

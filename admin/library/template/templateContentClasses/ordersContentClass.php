@@ -35,7 +35,7 @@ class ordersContentClass extends pageFormAbstractClass
 
         if (isset($this->data['func']) && ($this->data['func'] == 'add'))
         {
-            $productIds = isset($_SESSION['product_ids']) ? $_SESSION['product_ids'] : array();
+			$formData['all_products'] = $this->product->getAllTitlesAndIds();
         }
         elseif (isset($this->data['func']) && ($this->data['func'] == 'edit'))
         {
