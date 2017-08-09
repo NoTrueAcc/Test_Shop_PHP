@@ -208,7 +208,7 @@ class manageClass
 		}
 		else
 		{
-			$this->systemMessage->getUnknownError();
+			$this->systemMessage->getMessage('ERROR_DELETE_POSITION');
 		}
 	}
 

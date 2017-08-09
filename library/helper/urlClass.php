@@ -225,7 +225,7 @@ class urlClass
 
     public function redirectMessagePage()
     {
-        return $this->redirect('message');
+        return $this->redirect($this->returnMessageUrl());
     }
 
     /**
@@ -262,6 +262,11 @@ class urlClass
     {
         return $this->returnURL("order");
     }
+
+	public function returnMessageUrl()
+	{
+		return $this->returnURL("message");
+	}
 
     /**
      * Ссылка на раздел
