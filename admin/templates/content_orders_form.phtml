@@ -17,7 +17,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="number" name="count_<?=$j?>" value="<?=$edited_count?>">
+                                    <input type="number" min="0" max="100" name="count_<?=$j?>" value="<?=$edited_count?>">
                                 </td>
                                 <td>
                                     <a href="#" onclick="return deletePosition(this.parentNode.parentNode)">Удалить позицию</a>
@@ -30,12 +30,12 @@
                         <td>
                             <select name="products_0">
                                 <?php for($i = 0; $i < count($this->all_products); $i++) { ?>
-                                    <option name="product_id" value="<?=$this->all_products[$i]['id']?>" price="<?=$this->all_products[$i]['price']?>"><?=$this->all_products[$i]['title']?></option>
+                                    <option name="product_id" value="<?=$this->all_products[$i]['id']?>" <?=($this->all_products[$i]['id'] == 1) ? 'selected="selected"' : ''?> price="<?=$this->all_products[$i]['price']?>"><?=$this->all_products[$i]['title']?></option>
                                 <?php } ?>
                             </select>
                         </td>
                         <td>
-                            <input type="text" name="count_0" value="1">
+                            <input type="number" min="0" max="100" name="count_0" value="1">
                         </td>
                         <td>
                             <a href="#" onclick="return deletePosition(this.parentNode.parentNode)">Удалить позицию</a>

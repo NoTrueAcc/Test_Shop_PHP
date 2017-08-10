@@ -214,6 +214,31 @@ class manageClass
         return false;
     }
 
+    public function adminAddOrder()
+    {
+        $tempData = $this->dataOrder();
+        if($this->__order->insertData($tempData))
+        {
+            $this->systemMessage->getMessage('SUCCESS_ADD_ORDER');
+
+            return $this->__url->redirectAdminOrders();
+        }
+
+        return false;
+    }
+
+    public function adminDeleteOrder()
+    {
+        if($this->__order->deleteData($this->data['id']))
+        {
+            $this->systemMessage->getMessage('SUCCESS_DELETE_ORDER');
+        }
+        else
+        {
+            $this->systemMessage->getUnknownError();
+        }
+    }
+
     private function __loadImage()
     {
         $img = $_FILES['img'];

@@ -36,10 +36,13 @@ switch ($func) {
         $manage->adminDeleteSection();
         break;
     case 'add_order' :
-        $manage->addOrder();
+        $manage->adminAddOrder();
         break;
     case 'edit_order' :
         $manage->adminEditOrder();
+        break;
+    case 'delete_order' :
+        $manage->adminDeleteOrder();
         break;
 }
 
