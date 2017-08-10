@@ -202,9 +202,9 @@ class manageClass
 
     public function adminEditOrder()
     {
-        $tempProductData = $this->dataOrder();
+        $tempOrderData = $this->dataOrder();
 
-        if($this->__order->updateAllData($this->data['id'], $tempProductData))
+        if($this->__order->updateAllData($this->data['id'], $tempOrderData))
         {
             $this->systemMessage->getMessage('SUCCESS_EDIT_ORDER');
 
@@ -217,8 +217,11 @@ class manageClass
     public function adminAddOrder()
     {
         $tempData = $this->dataOrder();
+        $this->__setFormSessionData($tempData);
+
         if($this->__order->insertData($tempData))
         {
+            $this->__unsetFormSessionData($tempData);
             $this->systemMessage->getMessage('SUCCESS_ADD_ORDER');
 
             return $this->__url->redirectAdminOrders();

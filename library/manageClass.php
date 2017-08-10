@@ -127,7 +127,6 @@ class manageClass
         $tempData['date_order'] = $this->format->getTimeStamp();
         $tempData['date_send'] = 0;
         $tempData['date_pay'] = 0;
-        $tempData['discount'] = isset($_SESSION['discount']) ? $this->discount->getDiscountOnCode($_SESSION['discount']) : 0;
 
         $success = $this->order->insertData($tempData);
 
@@ -145,7 +144,10 @@ class manageClass
             $sendData['price'] = $tempData['price'];
             $this->mail->sendMail($tempData['email'], $sendData, 'ORDER');
 
-            $_SESSION = array();
+            foreach ($sendData as $field => $value)
+            {
+                unset($_SESSION[$field]);
+            }
 
             return $this->systemMessage->getPageMessage('ADD_ORDER');
         }
