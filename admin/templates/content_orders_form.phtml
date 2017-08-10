@@ -12,12 +12,12 @@
                                 <td>
                                     <select name="products_<?=$j?>">
                                         <?php for($i = 0; $i < count($this->all_products); $i++) { ?>
-                                            <option name="product_id" value="<?=$this->all_products[$i]['id']?>" <?php if($edited_product_id == $this->all_products[$i]['id']) { ?> selected="selected" <?php } ?> price="<?=$this->all_products[$i]['price']?>"><?=$this->all_products[$i]['title']?></option>
+                                            <option value="<?=$this->all_products[$i]['id']?>" <?php if($edited_product_id == $this->all_products[$i]['id']) { ?> selected="selected" <?php } ?> price="<?=$this->all_products[$i]['price']?>"><?=$this->all_products[$i]['title']?></option>
                                         <?php } ?>
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" name="count_<?=$j?>" value="<?=$edited_count?>">
+                                    <input type="number" name="count_<?=$j?>" value="<?=$edited_count?>">
                                 </td>
                                 <td>
                                     <a href="#" onclick="return deletePosition(this.parentNode.parentNode)">Удалить позицию</a>
@@ -35,7 +35,7 @@
                             </select>
                         </td>
                         <td>
-                            <input type="number" min="0" max="100" name="count_0" value="1">
+                            <input type="text" name="count_0" value="1">
                         </td>
                         <td>
                             <a href="#" onclick="return deletePosition(this.parentNode.parentNode)">Удалить позицию</a>
@@ -46,7 +46,7 @@
             <p>
                 <a href="#" onclick="return addPosition()">Добавить позицию</a>
             </p>
-            <table>
+            <table id="admin_order_content">
                 <tr>
                     <td>Способ доставки:</td>
                     <td>

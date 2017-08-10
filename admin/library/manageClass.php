@@ -200,6 +200,23 @@ class manageClass
         }
     }
 
+    public function adminEditOrder()
+    {
+        print_r($this->data);
+        exit;
+        $tempProductData = $this->dataOrder();
+
+        if($this->__order->updateAllData($this->data['id'], $tempProductData))
+        {
+            $this->systemMessage->getMessage('SUCCESS_EDIT_ORDER');
+
+            return $this->__url->redirectAdminOrders();
+        }
+
+        return false;
+
+    }
+
     private function __loadImage()
     {
         $img = $_FILES['img'];
@@ -231,6 +248,25 @@ class manageClass
         $tempProductData['cast'] = isset($this->data['cast']) ? $this->data['cast'] : '';
         $tempProductData['play'] = isset($this->data['play']) ? $this->data['play'] : '';
         $tempProductData['description'] = isset($this->data['description']) ? $this->data['description'] : '';
+
+        return $tempProductData;
+    }
+
+    public function dataOrder()
+    {
+        $tempProductData = array();
+        $tempProductData['delivery'] = isset($this->data['delivery']) ? $this->data['delivery'] : '';
+        $tempProductData['price'] = isset($this->data['price']) ? $this->data['price'] : '';
+        $tempProductData['name'] = isset($this->data['name']) ? $this->data['name'] : '';
+        $tempProductData['phone'] = isset($this->data['phone']) ? $this->data['phone'] : '';
+        $tempProductData['email'] = isset($this->data['email']) ? $this->data['email'] : '';
+        $tempProductData['address'] = isset($this->data['address']) ? $this->data['address'] : '';
+        $tempProductData['notice'] = isset($this->data['notice']) ? $this->data['notice'] : '';
+        $tempProductData['description'] = isset($this->data['description']) ? $this->data['description'] : '';
+        $tempProductData['is_send'] = isset($this->data['is_send']) ? $this->data['is_send'] : '';
+        $tempProductData['is_pay'] = isset($this->data['is_pay']) ? $this->data['is_pay'] : '';
+
+        $tempProductData['product_ids']
 
         return $tempProductData;
     }

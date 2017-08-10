@@ -2,9 +2,17 @@
  * Created by arozhkov on 09.08.17.
  */
 
-document.onclick = function(){
-	var form = document.getElementById('admin_table_form').getElementsByTagName('form')[0];
-	form.onclick = getPrice();
+document.onclick = function()
+{
+	var orderInputContent = document.getElementById('admin_order_content').getElementsByTagName('input');
+
+	for(var i = 0; i < orderInputContent.length; i++)
+	{
+		if(orderInputContent[i].getAttribute('name') === 'price')
+		{
+			orderInputContent[i].setAttribute('value', getPrice());
+		}
+	}
 }
 
 function deletePosition(elem)
@@ -33,7 +41,6 @@ function addPosition()
 	var newElemInput = newElement.getElementsByTagName('input')[0];
 
 	newElemSelect.setAttribute('name', 'products_' + lastNumber);
-	newElemInput.setAttribute('value', 1);
 	newElemInput.setAttribute('name', 'count_' + lastNumber);
 
 	return false;
@@ -53,8 +60,10 @@ function getPrice()
 		{
 			if(options[j].hasAttribute('selected'))
 			{
-				price += Number(options[j].getAttribute('price') * tr[i].getElementsByTagName('input')[0].getAttribute('value'));
+				price += Number(options[j].getAttribute('price') * tr[i].getElementsByTagName('input')[0].value);
 			}
 		}
 	}
+
+	return price;
 }
