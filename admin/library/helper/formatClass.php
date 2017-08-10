@@ -37,7 +37,12 @@ class formatClass
 
     public function getFormatDate($unixTime)
     {
-        return date('Y-m-d', $unixTime);
+        return date('Y-m-d H:i:s', $unixTime);
+    }
+
+    public function getFormatUnixTime($dateString)
+    {
+        return strtotime($dateString);
     }
 
     /**

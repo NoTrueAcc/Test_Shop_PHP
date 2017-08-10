@@ -202,8 +202,6 @@ class manageClass
 
     public function adminEditOrder()
     {
-        print_r($this->data);
-        exit;
         $tempProductData = $this->dataOrder();
 
         if($this->__order->updateAllData($this->data['id'], $tempProductData))
@@ -214,7 +212,6 @@ class manageClass
         }
 
         return false;
-
     }
 
     private function __loadImage()
@@ -262,11 +259,26 @@ class manageClass
         $tempProductData['email'] = isset($this->data['email']) ? $this->data['email'] : '';
         $tempProductData['address'] = isset($this->data['address']) ? $this->data['address'] : '';
         $tempProductData['notice'] = isset($this->data['notice']) ? $this->data['notice'] : '';
-        $tempProductData['description'] = isset($this->data['description']) ? $this->data['description'] : '';
-        $tempProductData['is_send'] = isset($this->data['is_send']) ? $this->data['is_send'] : '';
-        $tempProductData['is_pay'] = isset($this->data['is_pay']) ? $this->data['is_pay'] : '';
+        $tempProductData['date_send'] = ($this->data['is_send'] == 1) ? $this->format->getTimeStamp() : 0;
+        $tempProductData['date_pay'] = ($this->data['is_pay'] == 1) ? $this->format->getTimeStamp() : 0;
+        $tempProductData['date_order'] = $this->format->getTimeStamp();
+        $productIds = array();
+        $i = 0;
 
-        $tempProductData['product_ids']
+        while(isset($this->data["products_$i"]))
+        {
+            if($this->data["count_$i"] > 0)
+            {
+                for($j = 0; $j < $this->data["count_$i"]; $j++)
+                {
+                    $productIds[] = $this->data["products_$i"];
+                }
+            }
+
+            $i++;
+        }
+
+        $tempProductData['product_ids'] = implode(',', $productIds);
 
         return $tempProductData;
     }

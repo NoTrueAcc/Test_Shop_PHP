@@ -142,6 +142,8 @@ class orderClass extends globalDataBaseAbstractClass
         $orderDataElement['link_admin_edit'] = $this->url->getLinkAdminEditOrder($orderDataElement['id']);
         $orderDataElement['link_admin_delete'] = $this->url->getLinkAdminDeleteOrder ($orderDataElement['id']);
         $orderDataElement['date_order'] = $this->format->getFormatDate($orderDataElement['date_order']);
+        $orderDataElement['date_send'] = ($orderDataElement['date_send'] == 0) ? 'Не отправлено' : $this->format->getFormatDate($orderDataElement['date_send']);
+        $orderDataElement['date_pay'] = ($orderDataElement['date_pay'] == 0) ? 'Не оплачено' : $this->format->getFormatDate($orderDataElement['date_pay']);
 
         return $orderDataElement;
     }
