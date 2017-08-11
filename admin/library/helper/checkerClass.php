@@ -135,6 +135,21 @@ class checkerClass
         return false;
     }
 
+    public function checkCode($code)
+    {
+        return preg_match('/^[0-9a-z]+$/i', $code);
+    }
+
+    public function checkDiscountValue($floatNumber)
+    {
+        if(!is_float($floatNumber) && !is_string($floatNumber))
+        {
+            return false;
+        }
+
+        return preg_match('/^0\.[\d]+$/i', $floatNumber);
+    }
+
     public function checkTimeStamp($timeStamp)
     {
         return $this->checkNumberIntMoreOrZero($timeStamp, true);

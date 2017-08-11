@@ -1,22 +1,24 @@
 <div id="admin_table_info">
-    <h3>Секции</h3>
+    <h3>Купоны</h3>
     <?php include 'message.phtml'; ?>
     <p class="link_add">
-        <a href="<?=$this->link_add?>">Добавить новую секцию</a>
+        <a href="<?=$this->link_add?>">Добавить новый купон</a>
     </p>
     <table class="info">
         <tr class="header">
             <td>ID</td>
-            <td>Название</td>
+            <td>Код купона</td>
+            <td>Скидка</td>
             <td>Функции</td>
         </tr>
         <?php foreach ($this->table_data as $tableData) { ?>
             <tr>
                 <td><?=$tableData['id']?></td>
                 <td>
-                    <a href="<?=$tableData['link']?>"><?=$tableData['title']?></a>
-                    <br>
-                    <?=$this->section_title?>
+                    <?=$tableData['code']?>
+                </td>
+                <td>
+                    <?=($tableData['value'] * 100) . '%'?>
                 </td>
                 <td>
                     <a href="<?=$tableData['link_admin_edit']?>">Редактировать</a><br>

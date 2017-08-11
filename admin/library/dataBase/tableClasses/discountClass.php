@@ -29,6 +29,41 @@ class discountClass extends globalDataBaseAbstractClass
     {
         $result = $this->selectColumnOnFieldValue('code', $discountCode, 'value');
 
+        if(!$result)
+        {
+            return false;
+        }
+
         return $result['value'];
+    }
+
+    public function getDiscountDataOnId($id)
+    {
+        if(!$this->checker->checkNumberIntMoreOrZero($id))
+        {
+            $this->url->redirectNotFound();
+        }
+
+        return $this->transformData($this->selectAllOnField('id', $id));
+    }
+
+    public function getTableData($limit, $offset)
+    {
+        return $this->transformData($this->selectAll('id', true, $limit, $offset));
+    }
+
+    protected function transformElement($dataElement)
+    {
+        $dataElement['link_admin_edit'] = $this->url->getLinkAdminEditDiscount($dataElement['id']);
+        $dataElement['link_admin_delete'] = $this->url->getLinkAdminDeleteDiscount($dataElement['id']);
+        return $dataElement;
+    }
+
+    public function checkData($data)
+    {
+        if(!$this->checker->checkCode($data['code'])) return 'ERROR_DISCOUNT_CODE';
+        if(!$this->checker->checkDiscountValue($data['value'])) return 'ERROR_DISCOUNT_VALUE';
+
+        return true;
     }
 }

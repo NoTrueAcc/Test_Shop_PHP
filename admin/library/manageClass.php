@@ -15,6 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/helper/checkerClass.php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/productClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/sectionClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/orderClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/discountClass.php";
 
 use admin\config\configClass;
 use admin\helper\formatClass;
@@ -33,6 +34,7 @@ class manageClass
     private $__product;
     private $__section;
     private $__order;
+    private $__discount;
     private $__url;
 
     public function __construct()
@@ -45,6 +47,7 @@ class manageClass
         $this->__product = new \admin\database\tableClasses\productClass();
         $this->__section = new \admin\database\tableClasses\sectionClass();
         $this->__order = new \admin\database\tableClasses\orderClass();
+        $this->__discount = new \admin\database\tableClasses\discountClass();
         $this->__url = new urlClass();
     }
 
@@ -242,6 +245,53 @@ class manageClass
         }
     }
 
+    public function adminAddDiscount()
+    {
+        $this->__setFormSessionData($this->data);
+        $tempDiscountData = $this->dataDiscount();
+
+        if($this->__discount->getDiscountOnCode($this->data['code']))
+        {
+            $this->systemMessage->getMessage('ERROR_DISCOUNT_CODE_REPEAT');
+        }
+
+        if($this->__discount->insertData($tempDiscountData))
+        {
+            $this->__unsetFormSessionData($this->data);
+            $this->systemMessage->getMessage('SUCCESS_ADD_DISCOUNT');
+
+            return $this->__url->redirectAdminDiscounts();
+        }
+
+        return false;
+    }
+
+    public function adminEditDiscount()
+    {
+        $tempDiscountData = $this->dataDiscount();
+
+        if($this->__discount->updateAllData($this->data['id'], $tempDiscountData))
+        {
+            $this->systemMessage->getMessage('SUCCESS_EDIT_DISCOUNT');
+
+            return $this->__url->redirectAdminDiscounts();
+        }
+
+        return false;
+    }
+
+    public function adminDeleteDiscount()
+    {
+        if($this->__discount->deleteData($this->data['id']))
+        {
+            $this->systemMessage->getMessage('SUCCESS_DELETE_DISCOUNT');
+        }
+        else
+        {
+            $this->systemMessage->getUnknownError();
+        }
+    }
+
     private function __loadImage()
     {
         $img = $_FILES['img'];
@@ -316,6 +366,14 @@ class manageClass
         $tempSectionData['title'] = isset($this->data['section_title']) ? $this->data['section_title'] : '';
 
         return $tempSectionData;
+    }
+
+    public function dataDiscount()
+    {
+        $tempDiscountData['code'] = isset($this->data['code']) ? $this->data['code'] : '';
+        $tempDiscountData['value'] = isset($this->data['value']) ? $this->data['value'] : '';
+
+        return $tempDiscountData;
     }
 
     private function __setFormSessionData($formData)
