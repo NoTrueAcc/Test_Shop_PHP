@@ -144,10 +144,11 @@ class manageClass
             $sendData['price'] = $tempData['price'];
             $this->mail->sendMail($tempData['email'], $sendData, 'ORDER');
 
-            foreach ($sendData as $field => $value)
+            foreach ($tempData as $field => $value)
             {
                 unset($_SESSION[$field]);
             }
+            unset($_SESSION['cart']);
 
             return $this->systemMessage->getPageMessage('ADD_ORDER');
         }

@@ -16,6 +16,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/p
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/sectionClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/orderClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/discountClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/helper/statistic/statisticClass.php";
 
 use admin\config\configClass;
 use admin\helper\formatClass;
@@ -35,6 +36,7 @@ class manageClass
     private $__section;
     private $__order;
     private $__discount;
+    private $__statistics;
     private $__url;
 
     public function __construct()
@@ -49,6 +51,7 @@ class manageClass
         $this->__order = new \admin\database\tableClasses\orderClass();
         $this->__discount = new \admin\database\tableClasses\discountClass();
         $this->__url = new urlClass();
+        $this->__statistics = new \admin\database\tableClasses\helper\statisticClass();
     }
 
     public function adminLogin()
@@ -290,6 +293,12 @@ class manageClass
         {
             $this->systemMessage->getUnknownError();
         }
+    }
+
+    public function getStatistics()
+    {
+        $_SESSION['date_from']  = $this->data['date_from'];
+        $_SESSION['date_to']    = $this->data['date_to'];
     }
 
     private function __loadImage()

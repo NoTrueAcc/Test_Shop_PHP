@@ -53,6 +53,9 @@ switch ($func) {
     case 'delete_discount' :
         $manage->adminDeleteDiscount();
         break;
+    case 'show_statistics' :
+        $manage->getStatistics();
+        break;
 }
 
     if(!isset($link))

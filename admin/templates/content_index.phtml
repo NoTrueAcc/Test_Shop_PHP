@@ -1,5 +1,6 @@
 <h3>Статистика за последние 7 дней</h3>
 <table class="admin_stats_table">
+    <?php if($this->orders_statistics) : ?>
     <tr>
         <td>Количество заказов</td>
         <td>Счетов на сумму</td>
@@ -7,9 +8,12 @@
         <td>Купленных DVD</td>
     </tr>
     <tr>
-        <td>15</td>
-        <td>1078 рублей</td>
-        <td>530 рублей</td>
-        <td>7</td>
+        <td><?=$this->orders_statistics['count_orders']?></td>
+        <td><?=$this->orders_statistics['summ_accounts']?> рублей</td>
+        <td><?=$this->orders_statistics['income']?> рублей</td>
+        <td><?=$this->orders_statistics['count_dvd']?></td>
     </tr>
+    <?php else : ?>
+    <p>Статистика за последние 7 дней недоступна!</p>
+    <?php endif; ?>
 </table>

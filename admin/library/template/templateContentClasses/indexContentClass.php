@@ -20,6 +20,10 @@ class indexContentClass extends globalContentAbstractClass
 
     protected function getContent()
     {
+        $dateFrom = time() - (7 * 24 * 60 * 60);
+        $dateTo = time();
+        $this->template->setDataForReplace('orders_statistics', $this->statistic->getAllOrdersInInterval($dateFrom, $dateTo));
+
         return 'index';
     }
 }

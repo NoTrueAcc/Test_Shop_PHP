@@ -12,7 +12,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/globalDataBase
 require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/library/dataBase/tableClasses/productClass.php';
 
 use admin\database\globalDataBaseAbstractClass;
-use admin\database\tableClasses\productClass;
 
 /**
  * Класс для работы с таблицей Orders
@@ -38,6 +37,13 @@ class orderClass extends globalDataBaseAbstractClass
         }
 
         return $this->transformData($this->selectAllOnField('id', $id));
+    }
+
+    public function getAllInInterval($dateFrom, $dateTo)
+    {
+        $query = 'SELECT * FROM ' . $this->tableName . ' WHERE `date_order` BETWEEN ' . $this->config->symQuery . ' AND ' . $this->config->symQuery;
+
+        return $this->dataBaseConnect->selectData($query, array($dateFrom, $dateTo));
     }
 
     public function getTableData($limit, $offset)

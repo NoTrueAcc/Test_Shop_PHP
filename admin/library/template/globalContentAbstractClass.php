@@ -18,11 +18,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/s
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/productClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/discountClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/orderClass.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/dataBase/tableClasses/helper/statistic/statisticClass.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/library/messages/messageClass.php";
 
 use admin\assets\paginationClass;
 use admin\config\configClass;
 use admin\database\tableClasses\discountClass;
+use admin\database\tableClasses\helper\statisticClass;
 use admin\database\tableClasses\sectionClass;
 use admin\database\tableClasses\productClass;
 use admin\database\tableClasses\orderClass;
@@ -42,6 +44,7 @@ abstract class globalContentAbstractClass
     protected $product;
     protected $discount;
     protected $order;
+    protected $statistic;
     protected $message;
     protected $auth;
     protected $paginator;
@@ -55,6 +58,7 @@ abstract class globalContentAbstractClass
         $this->product = new productClass();
         $this->discount = new discountClass();
         $this->order = new orderClass();
+        $this->statistic = new statisticClass();
         $this->data = $this->format->checkDataFromXSS($_REQUEST);
         $this->template = new templateClass($_SERVER['DOCUMENT_ROOT'] . $this->config->templatesPhtmlDir);
         $this->message = new messageClass();
